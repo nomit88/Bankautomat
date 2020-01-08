@@ -18,7 +18,7 @@ import java.sql.*;
          */
         public DBConnection() {
             try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
+                Class.forName("com.mysql.jdbc.Driver");
                 if (this.connection == null) {
                     this.connection = (Connection) DriverManager.getConnection(CONNECTION_STRING, USER_DB, PASSWORD_DB);
                 }
