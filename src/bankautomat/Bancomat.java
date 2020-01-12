@@ -3,32 +3,45 @@ package bankautomat;
 import java.util.ArrayList;
 
 public class Bancomat {
+
     private static DBHelper dbHelper = new DBHelper();
 
     public Bancomat() {
-        
+
     }
-     /**
+
+    /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Anzeige anzeige = new Anzeige();
+        ArrayList<Karte> karten = dbHelper.getKarten();
+        Anzeige anzeige = new Anzeige(karten,new Bancomat());
         anzeige.setVisible(true);
-       ArrayList<Karte> karten = dbHelper.getKarten();
-        for(Karte karte : karten){
-            System.out.println(karte.getName()+1);
+
+    }
+    
+
+    public void geldAbheben() {
+
+    }
+
+    public void saldoAbfragen() {
+
+    }
+
+    public void pincodeAendern() {
+
+    }
+
+    public Boolean pincodePrüfen(Karte karte, int eingegebenerPin) {
+        if (karte.getPincode() == eingegebenerPin) {
+            return true;
+        } else {
+            return false;
         }
     }
-    public void geldAbheben(){
 
-    }
-    public void saldoAbfragen(){
-
-    }
-    public void pincodeAendern(){
-
-    }
-    public void karteEinlesenPrüefen(){
+    public void karteEinlesenPrüefen() {
 
     }
 }

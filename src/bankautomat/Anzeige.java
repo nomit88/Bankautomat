@@ -8,6 +8,7 @@ package bankautomat;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,13 +16,21 @@ import java.awt.event.WindowEvent;
  */
 public class Anzeige extends javax.swing.JFrame {
 
+    private ArrayList<Karte> karten;
+    private Bancomat bancomat;
+
     private boolean isGeldBeziehen = false;
+    private boolean isPinPruefen = false;
 
     /**
      * Creates new form Anzeige
      */
-    public Anzeige() {
+    public Anzeige(ArrayList<Karte> karten, Bancomat bancomat) {
         initComponents();
+        this.bancomat = bancomat;
+        this.karten = karten;
+        setKarten(karten);
+
         buttonGemischtMitQ.setVisible(false);
         buttonGemischtOhneQ.setVisible(false);
         buttonGrossMitQ.setVisible(false);
@@ -29,11 +38,20 @@ public class Anzeige extends javax.swing.JFrame {
         labelInfo.setText("Bitte wählen Sie eine Karte aus");
         labelValue.setText("");
         labelNoten.setVisible(false);
+        changeFunctionButtonState(false);
         changeInputButtonState(false);
-        comboboxKarte.addActionListener ((ActionEvent e) -> {
-                labelInfo.setText("Bitte geben Sie Ihren Pincode ein:");
-                changeInputButtonState(true);
+        comboboxKarte.addActionListener((ActionEvent e) -> {
+            labelInfo.setText("Bitte geben Sie Ihren Pincode ein:");
+            isPinPruefen = true;
+            changeInputButtonState(true);
         });
+    }
+
+    private void setKarten(ArrayList<Karte> karten) {
+        for (Karte karte : karten) {
+            comboboxKarte.addItem(karte.getIban());
+
+        }
     }
 
     /**
@@ -137,7 +155,7 @@ public class Anzeige extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonGemischtMitQ)
                     .addComponent(buttonGemischtOhneQ))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         buttonGeldBeziehen.setText("Geld beziehen");
@@ -309,10 +327,14 @@ public class Anzeige extends javax.swing.JFrame {
                     .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonNull, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        comboboxKarte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboboxKarte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboboxKarteActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Wählen Sie eine Karte ");
 
@@ -327,8 +349,8 @@ public class Anzeige extends javax.swing.JFrame {
                     .addComponent(buttonGeldBeziehen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -380,6 +402,27 @@ public class Anzeige extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonGemischtOhneQActionPerformed
 
     private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
+        if (isPinPruefen) {
+            Karte ausgewählteKarte = karten.get(0);
+            for (Karte karte : karten) {
+                if (karte.getIban() == String.valueOf(comboboxKarte.getSelectedItem())) {
+                    ausgewählteKarte = karte;
+                }
+            }
+            if (bancomat.pincodePrüfen(ausgewählteKarte, Integer.parseInt(labelValue.getText()))) {
+                isPinPruefen = false;
+                changeFunctionButtonState(true);
+                
+                labelInfo.setText("Pincode Korrekt eingegeben");
+                labelValue.setText("");
+                
+
+            } else {
+                labelInfo.setText("Falscher Pincode, versuchen Sie es erneut:");
+                labelValue.setText("");
+
+            }
+        }
         if (isGeldBeziehen) {
             labelNoten.setVisible(true);
             buttonGemischtMitQ.setVisible(true);
@@ -451,40 +494,9 @@ public class Anzeige extends javax.swing.JFrame {
         changeInputButtonState(true);
     }//GEN-LAST:event_buttonPinAendernActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Anzeige.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Anzeige.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Anzeige.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Anzeige.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Anzeige().setVisible(true);
-            }
-        });
-    }
+    private void comboboxKarteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboxKarteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboboxKarteActionPerformed
 
     public void beschrifteFktTasten() {
 
@@ -493,8 +505,8 @@ public class Anzeige extends javax.swing.JFrame {
     public void textDarstellen() {
 
     }
-    
-    private void changeInputButtonState(boolean state){
+
+    private void changeInputButtonState(boolean state) {
         buttonNull.setEnabled(state);
         buttonEins.setEnabled(state);
         buttonZwei.setEnabled(state);
@@ -507,6 +519,13 @@ public class Anzeige extends javax.swing.JFrame {
         buttonNeun.setEnabled(state);
         buttonOk.setEnabled(state);
         buttonClear.setEnabled(state);
+    }
+
+    private void changeFunctionButtonState(boolean state) {
+        buttonGeldBeziehen.setEnabled(state);
+        buttonPinAendern.setEnabled(state);
+        buttonSaldoAbfragen.setEnabled(state);
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
