@@ -35,15 +35,18 @@ public class Anzeige extends javax.swing.JFrame {
         buttonGemischtOhneQ.setVisible(false);
         buttonGrossMitQ.setVisible(false);
         buttonGrossOhneQ.setVisible(false);
+        buttonAndrererBetrag.setVisible(false);
         labelInfo.setText("Bitte wählen Sie eine Karte aus");
         labelValue.setText("");
         labelNoten.setVisible(false);
         changeFunctionButtonState(false);
         changeInputButtonState(false);
+        changeSubmissionButtonState(false, false);
         comboboxKarte.addActionListener((ActionEvent e) -> {
             labelInfo.setText("Bitte geben Sie Ihren Pincode ein:");
             isPinPruefen = true;
             changeInputButtonState(true);
+            changeSubmissionButtonState(true, true);
         });
     }
 
@@ -90,6 +93,7 @@ public class Anzeige extends javax.swing.JFrame {
         buttonNull = new javax.swing.JButton();
         comboboxKarte = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
+        buttonAndrererBetrag = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -126,8 +130,8 @@ public class Anzeige extends javax.swing.JFrame {
                     .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonGemischtMitQ)
-                            .addComponent(buttonGrossMitQ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(buttonGrossMitQ, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                            .addComponent(buttonGemischtMitQ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(buttonGemischtOhneQ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -155,7 +159,7 @@ public class Anzeige extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonGemischtMitQ)
                     .addComponent(buttonGemischtOhneQ))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         buttonGeldBeziehen.setText("Geld beziehen");
@@ -253,6 +257,11 @@ public class Anzeige extends javax.swing.JFrame {
         });
 
         buttonClear.setText("Clear");
+        buttonClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonClearActionPerformed(evt);
+            }
+        });
 
         buttonCancel.setText("Cancel");
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -327,7 +336,7 @@ public class Anzeige extends javax.swing.JFrame {
                     .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonNull, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         comboboxKarte.addActionListener(new java.awt.event.ActionListener() {
@@ -337,6 +346,13 @@ public class Anzeige extends javax.swing.JFrame {
         });
 
         jLabel4.setText("Wählen Sie eine Karte ");
+
+        buttonAndrererBetrag.setText("Anderer Betrag");
+        buttonAndrererBetrag.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAndrererBetragActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -349,18 +365,20 @@ public class Anzeige extends javax.swing.JFrame {
                     .addComponent(buttonGeldBeziehen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonPinAendern, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(31, 31, 31))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(comboboxKarte, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(20, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(buttonAndrererBetrag, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(buttonPinAendern, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(31, 31, 31))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -375,7 +393,9 @@ public class Anzeige extends javax.swing.JFrame {
                                 .addComponent(buttonSaldoAbfragen, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(44, 44, 44)
-                                .addComponent(buttonPinAendern, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(buttonPinAendern, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34)
+                                .addComponent(buttonAndrererBetrag, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(49, 49, 49))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -442,8 +462,19 @@ public class Anzeige extends javax.swing.JFrame {
 
     private void buttonGeldBeziehenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGeldBeziehenActionPerformed
         labelInfo.setText("Wie viel Geld möchten Sie beziehen?");
+        if(isGeldBeziehen){
+            changeSubmissionButtonState(true, true);
+        }
+        else{
+            changeSubmissionButtonState(false, false);
+        }
         isGeldBeziehen = true;
-        changeInputButtonState(true);
+        buttonGeldBeziehen.setText("20");
+        buttonAndrererBetrag.setVisible(true);
+        buttonPinAendern.setText("100");
+        buttonSaldoAbfragen.setText("50");
+        changeInputButtonState(false);
+        
     }//GEN-LAST:event_buttonGeldBeziehenActionPerformed
 
     private void buttonAchtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAchtActionPerformed
@@ -483,7 +514,15 @@ public class Anzeige extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonNeunActionPerformed
 
     private void buttonSaldoAbfragenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaldoAbfragenActionPerformed
-        changeInputButtonState(false);
+      
+        if(isGeldBeziehen){
+            labelValue.setText("50");
+            changeInputButtonState(false);
+            changeSubmissionButtonState(true, true);
+        }
+        else{
+            
+        }
     }//GEN-LAST:event_buttonSaldoAbfragenActionPerformed
 
     private void buttonNullActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNullActionPerformed
@@ -491,12 +530,26 @@ public class Anzeige extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonNullActionPerformed
 
     private void buttonPinAendernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPinAendernActionPerformed
+        if(isGeldBeziehen){
+            changeSubmissionButtonState(true, true);
+        }
+        else{
         changeInputButtonState(true);
+        }
+        
     }//GEN-LAST:event_buttonPinAendernActionPerformed
 
     private void comboboxKarteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboxKarteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboboxKarteActionPerformed
+
+    private void buttonAndrererBetragActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAndrererBetragActionPerformed
+        changeInputButtonState(true);
+    }//GEN-LAST:event_buttonAndrererBetragActionPerformed
+
+    private void buttonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClearActionPerformed
+        labelValue.setText("");
+    }//GEN-LAST:event_buttonClearActionPerformed
 
     public void beschrifteFktTasten() {
 
@@ -517,10 +570,9 @@ public class Anzeige extends javax.swing.JFrame {
         buttonSieben.setEnabled(state);
         buttonAcht.setEnabled(state);
         buttonNeun.setEnabled(state);
-        buttonOk.setEnabled(state);
-        buttonClear.setEnabled(state);
     }
 
+    
     private void changeFunctionButtonState(boolean state) {
         buttonGeldBeziehen.setEnabled(state);
         buttonPinAendern.setEnabled(state);
@@ -528,8 +580,13 @@ public class Anzeige extends javax.swing.JFrame {
 
     }
 
+    private void changeSubmissionButtonState(boolean ok, boolean clear){
+        buttonOk.setEnabled(ok);
+        buttonClear.setEnabled(clear);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAcht;
+    private javax.swing.JButton buttonAndrererBetrag;
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonClear;
     private javax.swing.JButton buttonDrei;

@@ -31,21 +31,24 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel2" pref="457" max="32767" attributes="0"/>
-                  <Component id="jPanel1" alignment="0" pref="457" max="32767" attributes="0"/>
+                  <Component id="jPanel2" pref="451" max="32767" attributes="0"/>
+                  <Component id="jPanel1" alignment="0" pref="451" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="buttonPinAendern" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="comboboxKarte" max="32767" attributes="0"/>
                           <Component id="jLabel4" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="20" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="buttonAndrererBetrag" alignment="0" max="32767" attributes="0"/>
+                          <Component id="buttonPinAendern" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -66,6 +69,8 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                               <Component id="buttonPinAendern" min="-2" pref="52" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                              <Component id="buttonAndrererBetrag" min="-2" pref="52" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
@@ -110,8 +115,8 @@
                       <Component id="labelInfo" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="buttonGemischtMitQ" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonGrossMitQ" max="32767" attributes="0"/>
+                              <Component id="buttonGrossMitQ" pref="243" max="32767" attributes="0"/>
+                              <Component id="buttonGemischtMitQ" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -148,7 +153,7 @@
                       <Component id="buttonGemischtMitQ" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonGemischtOhneQ" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="19" max="32767" attributes="0"/>
+                  <EmptySpace pref="29" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -296,7 +301,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonNull" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="23" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -386,6 +391,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Clear"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonClearActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonCancel">
           <Properties>
@@ -422,6 +430,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="W&#xe4;hlen Sie eine Karte "/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonAndrererBetrag">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Anderer Betrag"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAndrererBetragActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
