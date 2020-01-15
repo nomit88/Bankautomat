@@ -19,6 +19,12 @@ public class Karte {
     private int kartennummer;
     private String gueltigBis;
     private int pincode;
+    private int pincount = 3;
+
+    public int getPincount() {
+        pincode--;
+        return pincount;
+    }
 
     public Karte(String name, String vorname, int kontonummer, String iban, String bankbezeichnung, int kartennummer, String gueltigBis, int pincode) {
         this.name = name;

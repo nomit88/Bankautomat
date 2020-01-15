@@ -4814,7 +4814,7 @@
 											"top": 280,
 											"width": 180.27978515625,
 											"height": 13,
-											"text": "+getKarten(): List<StringArray>",
+											"text": "+getKarten(): List<Karte>",
 											"horizontalAlignment": 0
 										}
 									],
@@ -7339,7 +7339,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFvhH/RcLtu+aM="
 									},
-									"type": "List<StringArray>",
+									"type": "List<Karte>",
 									"direction": "return"
 								}
 							]

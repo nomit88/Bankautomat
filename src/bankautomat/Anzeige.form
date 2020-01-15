@@ -118,11 +118,12 @@
                               <Component id="buttonGrossMitQ" pref="243" max="32767" attributes="0"/>
                               <Component id="buttonGemischtMitQ" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="buttonGemischtOhneQ" max="32767" attributes="0"/>
-                              <Component id="buttonGrossOhneQ" max="32767" attributes="0"/>
+                          <EmptySpace pref="35" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="buttonGrossOhneQ" min="-2" pref="151" max="-2" attributes="0"/>
+                              <Component id="buttonGemischtOhneQ" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="labelNoten" min="-2" max="-2" attributes="0"/>
@@ -153,7 +154,7 @@
                       <Component id="buttonGemischtMitQ" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonGemischtOhneQ" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="29" max="32767" attributes="0"/>
+                  <EmptySpace pref="19" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
