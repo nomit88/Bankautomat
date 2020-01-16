@@ -22,7 +22,7 @@ public class Karte {
     private int pincount = 3;
 
     public int getPincount() {
-        pincode--;
+        pincount--; 
         return pincount;
     }
 

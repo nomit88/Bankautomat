@@ -18,6 +18,7 @@ public class Anzeige extends javax.swing.JFrame {
 
     private ArrayList<Karte> karten;
     private Bancomat bancomat;
+    private Karte ausgewählteKarte;
 
     private boolean isGeldBeziehen = false;
     private boolean isPinPruefen = false;
@@ -43,6 +44,7 @@ public class Anzeige extends javax.swing.JFrame {
         changeInputButtonState(false);
         changeSubmissionButtonState(false, false);
         comboboxKarte.addActionListener((ActionEvent e) -> {
+            ausgewählteKarte = bancomat.karteEinlesen(karten, String.valueOf(comboboxKarte.getSelectedItem()));
             labelInfo.setText("Bitte geben Sie Ihren Pincode ein:");
             isPinPruefen = true;
             changeInputButtonState(true);
@@ -51,9 +53,13 @@ public class Anzeige extends javax.swing.JFrame {
     }
 
     private void setKarten(ArrayList<Karte> karten) {
-        for (Karte karte : karten) {
-            comboboxKarte.addItem(karte.getIban());
+        ArrayList<String> gesperteIbans = bancomat.getGesperteKarten();
+        comboboxKarte.removeAllItems();
 
+        for (Karte karte : karten) {
+            if (!gesperteIbans.contains(karte.getIban())) {
+                comboboxKarte.addItem(karte.getIban());
+            }
         }
     }
 
@@ -427,24 +433,23 @@ public class Anzeige extends javax.swing.JFrame {
 
     private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
         if (isPinPruefen) {
-            Karte ausgewählteKarte = karten.get(0);
-            for (Karte karte : karten) {
-                if (karte.getIban() == String.valueOf(comboboxKarte.getSelectedItem())) {
-                    ausgewählteKarte = karte;
-                }
-            }
             if (bancomat.pincodePrüfen(ausgewählteKarte, Integer.parseInt(labelValue.getText()))) {
                 isPinPruefen = false;
                 changeFunctionButtonState(true);
-                
+
                 labelInfo.setText("Pincode Korrekt eingegeben");
                 labelValue.setText("");
-                
 
             } else {
-                labelInfo.setText("Falscher Pincode, versuchen Sie es erneut:");
-                labelValue.setText("");
-
+                int anzVerbleibendeVersuche = ausgewählteKarte.getPincount();
+                if (anzVerbleibendeVersuche > 0) {
+                    labelInfo.setText("Falscher Pincode, versuchen Sie es erneut: Verbleibende Versuche " + anzVerbleibendeVersuche);
+                } else {
+                    labelInfo.setText("Der Pincode wurde zu oft falsch eingegeben. Die Karte wird jetzt eingezogen");
+                    bancomat.karteEinziehen(ausgewählteKarte);
+                    karten.remove(ausgewählteKarte);
+                    setKarten(karten);
+                }
             }
         }
         if (isGeldBeziehen) {
@@ -466,10 +471,9 @@ public class Anzeige extends javax.swing.JFrame {
 
     private void buttonGeldBeziehenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGeldBeziehenActionPerformed
         labelInfo.setText("Wie viel Geld möchten Sie beziehen?");
-        if(isGeldBeziehen){
+        if (isGeldBeziehen) {
             changeSubmissionButtonState(true, true);
-        }
-        else{
+        } else {
             changeSubmissionButtonState(false, false);
         }
         isGeldBeziehen = true;
@@ -478,7 +482,7 @@ public class Anzeige extends javax.swing.JFrame {
         buttonPinAendern.setText("100");
         buttonSaldoAbfragen.setText("50");
         changeInputButtonState(false);
-        
+
     }//GEN-LAST:event_buttonGeldBeziehenActionPerformed
 
     private void buttonAchtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAchtActionPerformed
@@ -518,14 +522,13 @@ public class Anzeige extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonNeunActionPerformed
 
     private void buttonSaldoAbfragenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaldoAbfragenActionPerformed
-      
-        if(isGeldBeziehen){
+
+        if (isGeldBeziehen) {
             labelValue.setText("50");
             changeInputButtonState(false);
             changeSubmissionButtonState(true, true);
-        }
-        else{
-            
+        } else {
+
         }
     }//GEN-LAST:event_buttonSaldoAbfragenActionPerformed
 
@@ -534,13 +537,12 @@ public class Anzeige extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonNullActionPerformed
 
     private void buttonPinAendernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPinAendernActionPerformed
-        if(isGeldBeziehen){
+        if (isGeldBeziehen) {
             changeSubmissionButtonState(true, true);
+        } else {
+            changeInputButtonState(true);
         }
-        else{
-        changeInputButtonState(true);
-        }
-        
+
     }//GEN-LAST:event_buttonPinAendernActionPerformed
 
     private void comboboxKarteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboxKarteActionPerformed
@@ -576,7 +578,6 @@ public class Anzeige extends javax.swing.JFrame {
         buttonNeun.setEnabled(state);
     }
 
-    
     private void changeFunctionButtonState(boolean state) {
         buttonGeldBeziehen.setEnabled(state);
         buttonPinAendern.setEnabled(state);
@@ -584,7 +585,7 @@ public class Anzeige extends javax.swing.JFrame {
 
     }
 
-    private void changeSubmissionButtonState(boolean ok, boolean clear){
+    private void changeSubmissionButtonState(boolean ok, boolean clear) {
         buttonOk.setEnabled(ok);
         buttonClear.setEnabled(clear);
     }
