@@ -12,9 +12,7 @@ public class Kartenleser {
             }
         return ausgewählteKarte;
     }
-    public void auswerfen(){
 
-    }
     public void einziehen(DBHelper db, Karte karte){
         db.karteSperren(karte.getIban());
     }

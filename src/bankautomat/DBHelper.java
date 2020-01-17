@@ -49,6 +49,18 @@ public class DBHelper {
             Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+     public void pinAendern(String iban,int newPin ) {
+        Statement statement;
+        try {
+            statement = connection.createStatement();
+            String query = "UPDATE karte SET pincode='"+newPin+"' WHERE iban='"+iban+"'";
+            statement.execute(query);
+        } catch (SQLException ex) {
+            System.err.println("Err:" + ex);
+            Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public ArrayList<String> getGesperteKarten() {
         ArrayList datas = new ArrayList();
