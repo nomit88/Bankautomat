@@ -154,7 +154,7 @@
                       <Component id="buttonGemischtMitQ" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonGemischtOhneQ" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="19" max="32767" attributes="0"/>
+                  <EmptySpace pref="29" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -168,6 +168,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Gross, mit Quittung"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonGrossMitQActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="labelNoten">
           <Properties>
@@ -302,7 +305,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonNull" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="23" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

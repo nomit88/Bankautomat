@@ -79,6 +79,31 @@ public class DBHelper {
         return datas;
     }
 
+    public void geldAbheben(int menge, String iban){
+        try {
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM bank WHERE iban LIKE '"+iban+ "'";
+            ResultSet result = statement.executeQuery(query);
+            int verfuegbarerSaldo = 0;
+            int bereitsBezogenesGeld = 0;
+            int bezugslimite = 0;
+            while (result.next()) {
+                verfuegbarerSaldo = result.getInt("saldo");
+                bereitsBezogenesGeld = result.getInt("bereitsbezogenesgeld");
+                bezugslimite = result.getInt("bezugslimite");
+            }
+            verfuegbarerSaldo -= menge;
+            if((menge + bereitsBezogenesGeld) <= bezugslimite){
+                query = "UPDATE bank SET saldo = "+verfuegbarerSaldo +", bereitsbezogenesgeld = " +(bereitsBezogenesGeld + menge) + " WHERE iban LIKE '"+iban+"';";
+                statement.executeUpdate(query);
+            }else{
+                System.err.println("Bezugslimite überstritten!");
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * Holt alle Ausgaben aus der DB
      *

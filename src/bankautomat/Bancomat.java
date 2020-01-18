@@ -22,8 +22,8 @@ public class Bancomat {
 
     }
 
-    public void geldAbheben() {
-
+    public void geldAbheben(int menge, Karte karte) {
+        dbHelper.geldAbheben(menge, karte.getIban());
     }
 
     public void saldoAbfragen() {

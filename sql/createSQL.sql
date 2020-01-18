@@ -19,12 +19,12 @@ CREATE TABLE bank(
     gesperrt int(1),
     saldo double,
     bezugslimite int,
+	bereitsbezogenesgeld int,
     PRIMARY KEY (iban)
 );
 
 CREATE TABLE kartegesperrt(
 	iban varchar(34),
-    gesperrt int(1),
     PRIMARY KEY(iban),
     FOREIGN KEY (iban) REFERENCES karte(iban)
 );
