@@ -22,12 +22,23 @@ public class Bancomat {
 
     }
 
-    public void geldAbheben(int menge, Karte karte) {
-        dbHelper.geldAbheben(menge, karte.getIban());
+    public String geldAbheben(int menge, Karte karte) {
+        int[] values = dbHelper.getBankValues(karte.getIban());
+        int bezugslimite = values[0];
+        int verfuegbarerSaldo = values[1];
+        int bereitsBezogenesGeld = values[2];
+        verfuegbarerSaldo -= menge;
+        if((menge + bereitsBezogenesGeld) <= bezugslimite){
+            bereitsBezogenesGeld += menge;
+            dbHelper.geldAbheben(menge, karte.getIban(), verfuegbarerSaldo, bereitsBezogenesGeld);
+        }else{
+            return "Bezugslimite überschritten!";
+        }
+        return "";
     }
 
-    public void saldoAbfragen() {
-
+    public String saldoAbfragen(Karte ausgewaehlteKarte) {
+        return dbHelper.saldoAbfragen(ausgewaehlteKarte.getIban());
     }
 
     /**

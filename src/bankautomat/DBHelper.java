@@ -79,30 +79,55 @@ public class DBHelper {
         return datas;
     }
 
-    public void geldAbheben(int menge, String iban){
-        try {
+    /**
+     * 
+     * @param iban Die Karte, von der die Bezugslimite geholt werden soll.
+     * @return Ein Array, mit den Werten welche benötigt werden. 
+     * [0] = Bezugslimite
+     * [1] = Saldo
+     * [2] = Bereits bezogenes Geld
+     */
+    public int [] getBankValues(String iban){
+        int[] values = new int[3];
+         try {
             Statement statement = connection.createStatement();
             String query = "SELECT * FROM bank WHERE iban LIKE '"+iban+ "'";
             ResultSet result = statement.executeQuery(query);
-            int verfuegbarerSaldo = 0;
-            int bereitsBezogenesGeld = 0;
-            int bezugslimite = 0;
             while (result.next()) {
-                verfuegbarerSaldo = result.getInt("saldo");
-                bereitsBezogenesGeld = result.getInt("bereitsbezogenesgeld");
-                bezugslimite = result.getInt("bezugslimite");
+                values[2] = result.getInt("bereitsbezogenesgeld");
+                values[0] = result.getInt("bezugslimite");
+                values[1] = result.getInt("saldo");
             }
-            verfuegbarerSaldo -= menge;
-            if((menge + bereitsBezogenesGeld) <= bezugslimite){
-                query = "UPDATE bank SET saldo = "+verfuegbarerSaldo +", bereitsbezogenesgeld = " +(bereitsBezogenesGeld + menge) + " WHERE iban LIKE '"+iban+"';";
-                statement.executeUpdate(query);
-            }else{
-                System.err.println("Bezugslimite überstritten!");
-            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return values;
+    }
+    
+    public void geldAbheben(int menge, String iban, int verfuegbarerSaldo, int bereitsBezogenesGeld){
+        try {
+            Statement statement = connection.createStatement();
+            String query = "UPDATE bank SET saldo = "+verfuegbarerSaldo +", bereitsbezogenesgeld = " + bereitsBezogenesGeld + " WHERE iban LIKE '"+iban+"';";
+            statement.executeUpdate(query);
             
         } catch (SQLException ex) {
             Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public String saldoAbfragen(String iban){
+        try {
+            Statement statement = connection.createStatement();
+            String query = "SELECT saldo FROM bank WHERE iban LIKE '"+iban+ "'";
+            ResultSet result = statement.executeQuery(query);
+            while (result.next()) {
+                return result.getString("saldo");
+            }   
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
     }
     /**
      * Holt alle Ausgaben aus der DB

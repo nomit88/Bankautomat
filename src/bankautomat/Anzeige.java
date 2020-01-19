@@ -5,12 +5,17 @@
  */
 package bankautomat;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 
 /**
  *
@@ -21,7 +26,8 @@ public class Anzeige extends javax.swing.JFrame {
     private ArrayList<Karte> karten;
     private Bancomat bancomat;
     private Karte ausgewählteKarte;
-
+    private Quittung quittung;
+    
     private boolean isGeldBeziehen = false;
     private boolean isPinPruefen = false;
     private boolean isPinAendernPruefen = false;
@@ -35,8 +41,10 @@ public class Anzeige extends javax.swing.JFrame {
         initComponents();
         this.bancomat = bancomat;
         this.karten = karten;
+        quittung = new Quittung();
+        
         setKartenDropdown(karten);
-
+        
         changeGeldwahlButtonvisibility(false);
         buttonAndrererBetrag.setVisible(false);
         textDarstellen("Bitte wählen Sie eine Karte aus");
@@ -124,6 +132,11 @@ public class Anzeige extends javax.swing.JFrame {
         labelNoten.setText("Was für Noten?");
 
         buttonGrossOhneQ.setText("Gross, ohne Quittung");
+        buttonGrossOhneQ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonGrossOhneQActionPerformed(evt);
+            }
+        });
 
         buttonGemischtMitQ.setText("Gemischt, mit Quittung");
         buttonGemischtMitQ.addActionListener(new java.awt.event.ActionListener() {
@@ -433,12 +446,17 @@ public class Anzeige extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonGemischtMitQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGemischtMitQActionPerformed
-        // TODO add your handling code here:
+       
+        quittung.setZweihunderterNotenAnzahl("2");
+        quittung.setHunderterNotenAnzahl("1");
+        quittung.setFuenfzigerNotenAnzahl("4");
+        quittung.setZwanzigerNotenAnzahl("6");
+        quittung.updateNotenLabels();
+        quittung.setVisible(true);
     }//GEN-LAST:event_buttonGemischtMitQActionPerformed
 
     private void buttonGemischtOhneQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGemischtOhneQActionPerformed
-        Quittung quittung = new Quittung();
-        quittung.setVisible(true);
+        
     }//GEN-LAST:event_buttonGemischtOhneQActionPerformed
    
     /**
@@ -496,11 +514,15 @@ public class Anzeige extends javax.swing.JFrame {
                 }
             }
         }
+        
         if (isGeldBeziehen) {
             changeGeldwahlButtonvisibility(true);
         }
+        else{
+            labelValue.setText("");
+        }
 
-        labelValue.setText("");
+        
     }//GEN-LAST:event_buttonOkActionPerformed
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
@@ -562,13 +584,13 @@ public class Anzeige extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonNeunActionPerformed
 
     private void buttonSaldoAbfragenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaldoAbfragenActionPerformed
-
         if (isGeldBeziehen) {
             labelValue.setText("50");
             changeInputButtonState(false);
             changeSubmissionButtonState(true, true, false);
         } else {
-
+            labelInfo.setText("Ihr Saldo beträgt:");
+            labelValue.setText(bancomat.saldoAbfragen(ausgewählteKarte));
         }
     }//GEN-LAST:event_buttonSaldoAbfragenActionPerformed
 
@@ -593,7 +615,9 @@ public class Anzeige extends javax.swing.JFrame {
     }//GEN-LAST:event_comboboxKarteActionPerformed
 
     private void buttonAndrererBetragActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAndrererBetragActionPerformed
+        labelValue.setText("");
         changeInputButtonState(true);
+        changeSubmissionButtonState(true, true, true);
     }//GEN-LAST:event_buttonAndrererBetragActionPerformed
 
     private void buttonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClearActionPerformed
@@ -601,8 +625,19 @@ public class Anzeige extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonClearActionPerformed
 
     private void buttonGrossMitQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGrossMitQActionPerformed
-        bancomat.geldAbheben(Integer.parseInt(labelValue.getText()), ausgewählteKarte);
+        labelValue.setText(bancomat.geldAbheben(Integer.parseInt(labelValue.getText()), ausgewählteKarte));
+
+        quittung.setZweihunderterNotenAnzahl("1");
+        quittung.setHunderterNotenAnzahl("3");
+        quittung.setFuenfzigerNotenAnzahl("5");
+        quittung.setZwanzigerNotenAnzahl("2");
+        quittung.updateNotenLabels();
+        quittung.setVisible(true);
     }//GEN-LAST:event_buttonGrossMitQActionPerformed
+
+    private void buttonGrossOhneQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGrossOhneQActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonGrossOhneQActionPerformed
 
     public void beschrifteFktTasten() {
 
