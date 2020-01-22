@@ -535,6 +535,7 @@ public class Anzeige extends javax.swing.JFrame {
         textDarstellen("Wie viel Geld möchten Sie beziehen?:");
         if (isGeldBeziehen) {
             changeSubmissionButtonState(true, true, true);
+            labelValue.setText("20");
         } else {
             changeSubmissionButtonState(false, false, true);
         }
@@ -601,6 +602,7 @@ public class Anzeige extends javax.swing.JFrame {
     private void buttonPinAendernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPinAendernActionPerformed
         if (isGeldBeziehen) {
             changeSubmissionButtonState(true, true, false);
+            labelValue.setText("100");
         } else {
             textDarstellen("Geben Sie Ihren aktuellen Pin ein um den Pin zu ändern:");
             changeInputButtonState(true);
