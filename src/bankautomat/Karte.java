@@ -24,6 +24,10 @@ public class Karte {
         pincount--; 
         return pincount;
     }
+    
+    public void resetPincount() {
+       pincount = 3;
+    }
 
     public Karte(String name, String vorname, String iban, String bankbezeichnung, int kartennummer, String gueltigBis, int pincode) {
         this.name = name;
