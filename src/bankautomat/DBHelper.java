@@ -26,8 +26,7 @@ public class DBHelper {
             ResultSet result = statement.executeQuery(query);
 
             while (result.next()) {
-                datas.add(new Karte(result.getString("name"), result.getString("vorname"),
-                        result.getInt("kontonummer"), result.getString("iban"), result.getString("bankbezeichnung"),
+                datas.add(new Karte(result.getString("name"), result.getString("vorname"), result.getString("iban"), result.getString("bankbezeichnung"),
                         result.getInt("kartennummer"), result.getString("gueltigbis"), result.getInt("pincode")));
             }
         } catch (SQLException ex) {

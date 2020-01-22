@@ -7,7 +7,8 @@ public class Bancomat {
     private static DBHelper dbHelper = new DBHelper();
     private Kartenleser kartenleser = new Kartenleser();
     private static Anzeige anzeige;
-
+    private RemoteBankSystem remoteBankSystem = new RemoteBankSystem();
+    
     public Bancomat() {
 
     }
@@ -23,18 +24,7 @@ public class Bancomat {
     }
 
     public String geldAbheben(int menge, Karte karte) {
-        int[] values = dbHelper.getBankValues(karte.getIban());
-        int bezugslimite = values[0];
-        int verfuegbarerSaldo = values[1];
-        int bereitsBezogenesGeld = values[2];
-        verfuegbarerSaldo -= menge;
-        if((menge + bereitsBezogenesGeld) <= bezugslimite){
-            bereitsBezogenesGeld += menge;
-            dbHelper.geldAbheben(menge, karte.getIban(), verfuegbarerSaldo, bereitsBezogenesGeld);
-        }else{
-            return "Bezugslimite überschritten!";
-        }
-        return "";
+        return remoteBankSystem.geldAbheben(menge, karte);
     }
 
     public String saldoAbfragen(Karte ausgewaehlteKarte) {

@@ -13,7 +13,6 @@ public class Karte {
 
     private String name;
     private String vorname;
-    private int kontonummer;
     private String iban;
     private String bankbezeichnung;
     private int kartennummer;
@@ -26,10 +25,9 @@ public class Karte {
         return pincount;
     }
 
-    public Karte(String name, String vorname, int kontonummer, String iban, String bankbezeichnung, int kartennummer, String gueltigBis, int pincode) {
+    public Karte(String name, String vorname, String iban, String bankbezeichnung, int kartennummer, String gueltigBis, int pincode) {
         this.name = name;
         this.vorname = vorname;
-        this.kontonummer = kontonummer;
         this.iban = iban;
         this.bankbezeichnung = bankbezeichnung;
         this.kartennummer = kartennummer;
@@ -51,10 +49,6 @@ public class Karte {
 
     public String getVorname() {
         return vorname;
-    }
-
-    public int getKontonummer() {
-        return kontonummer;
     }
 
     public String getIban() {
