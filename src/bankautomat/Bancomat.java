@@ -28,9 +28,12 @@ public class Bancomat {
     }
 
     public String saldoAbfragen(Karte ausgewaehlteKarte) {
-        return dbHelper.saldoAbfragen(ausgewaehlteKarte.getIban());
+        return remoteBankSystem.saldoAbfragen(ausgewaehlteKarte.getIban());
     }
 
+    public boolean pruefeKonto(Karte ausgewaehlteKarte){
+        return remoteBankSystem.pruefeKonto(ausgewaehlteKarte.getIban());
+    }
     /**
      *
      * @param karte

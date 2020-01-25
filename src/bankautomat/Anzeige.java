@@ -27,7 +27,7 @@ public class Anzeige extends javax.swing.JFrame {
     private Bancomat bancomat;
     private Karte ausgewählteKarte;
     private Quittung quittung;
-
+    
     private boolean isGeldBeziehen = false;
     private boolean isPinPruefen = false;
     private boolean isPinAendernPruefen = false;
@@ -505,6 +505,8 @@ public class Anzeige extends javax.swing.JFrame {
                     isPinAendernPruefen = false;
                     isPinAendernAendern = true;
                 }
+                buttonGeldBeziehen.setEnabled(bancomat.pruefeKonto(ausgewählteKarte));
+                buttonSaldoAbfragen.setEnabled(bancomat.pruefeKonto(ausgewählteKarte));
             } else {
                 int anzVerbleibendeVersuche = ausgewählteKarte.getPincount();
                 if (anzVerbleibendeVersuche > 0) {

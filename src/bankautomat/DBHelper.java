@@ -103,6 +103,13 @@ public class DBHelper {
         return values;
     }
     
+    /**
+     * Hebt einen gewissen Betrag von dem Konto ab
+     * @param menge Die Menge, welche abgehoben werden soll
+     * @param iban Die Iban, mit der das Konto, von dem Geld abgehoben werden soll verbunden ist
+     * @param verfuegbarerSaldo Der verfügbare Saldo, welche noch abgehoben werden kann
+     * @param bereitsBezogenesGeld Das Bereits bezogene Geld auf diesem Konto
+     */
     public void geldAbheben(int menge, String iban, int verfuegbarerSaldo, int bereitsBezogenesGeld){
         try {
             Statement statement = connection.createStatement();
@@ -114,6 +121,11 @@ public class DBHelper {
         }
     }
     
+    /**
+     * Gibt den verfügbaren Saldo eines Kontos zurück
+     * @param iban Die Iban, welche mit dem Konto verbunden ist
+     * @return Der verfügbare Saldo
+     */
     public String saldoAbfragen(String iban){
         try {
             Statement statement = connection.createStatement();
@@ -128,9 +140,35 @@ public class DBHelper {
         }
         return "";
     }
+
     /**
-     * Holt alle Ausgaben aus der DB
-     *
-     * @return
+     * Sperrt ein Konto
+     * @param iban Die Iban der Karte von dem Konto, was gesperrt werden soll.
      */
+    public void kontoSperren(String iban){
+                try {
+            Statement statement = connection.createStatement();
+            String query = "UPDATE bank SET gesperrt = 1 WHERE iban LIKE '"+iban+"';";
+            statement.executeUpdate(query);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public boolean pruefeKonto(String iban){
+                try {
+            Statement statement = connection.createStatement();
+            String query = "SELECT gesperrt FROM bank WHERE iban LIKE '"+iban+ "'";
+            ResultSet result = statement.executeQuery(query);
+            while (result.next()) {
+                return result.getInt("gesperrt") == 1 ? false : true;
+            }   
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
 }

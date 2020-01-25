@@ -3,11 +3,11 @@ package bankautomat;
 public class RemoteBankSystem {
     private static DBHelper dbHelper = new DBHelper();
     
-    public void pruefeKonto(){
-
+    public boolean pruefeKonto(String iban){
+        return dbHelper.pruefeKonto(iban);
     }
-    public void saldoAbfragen(){
-
+    public String saldoAbfragen(String iban){
+        return dbHelper.saldoAbfragen(iban);
     }
     
     public String geldAbheben(int menge, Karte karte){
@@ -20,8 +20,13 @@ public class RemoteBankSystem {
             bereitsBezogenesGeld += menge;
             dbHelper.geldAbheben(menge, karte.getIban(), verfuegbarerSaldo, bereitsBezogenesGeld);
         }else{
+            kontoSperren(karte.getIban());
             return "Bezugslimite überschritten! Ihr Konto wird gesperrt.";
         }
         return "";
+    }
+    
+    public void kontoSperren(String iban){
+        dbHelper.kontoSperren(iban);
     }
 }
