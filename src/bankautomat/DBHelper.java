@@ -162,7 +162,7 @@ public class DBHelper {
             String query = "SELECT gesperrt FROM bank WHERE iban LIKE '"+iban+ "'";
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
-                return result.getInt("gesperrt") == 1 ? false : true;
+                return result.getInt("gesperrt") == 1 ? true : false;
             }   
             
         } catch (SQLException ex) {
