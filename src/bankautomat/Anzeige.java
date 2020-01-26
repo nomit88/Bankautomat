@@ -569,6 +569,7 @@ public class Anzeige extends javax.swing.JFrame {
                     }
                 }
             }
+        }
 
             if (isGeldBeziehen) {
                 changeGeldwahlButtonvisibility(true);
@@ -576,7 +577,7 @@ public class Anzeige extends javax.swing.JFrame {
 
                 labelValue.setText(isKontoGesperrt ? "Ihr Konto ist gesperrt!" : "");
             }
-        }
+        
 
     }//GEN-LAST:event_buttonOkActionPerformed
 
