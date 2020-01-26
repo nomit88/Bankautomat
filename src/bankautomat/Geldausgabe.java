@@ -8,8 +8,8 @@ package bankautomat;
 import javax.swing.JFrame;
 
 /**
- *
- * @author Lars
+ * 
+ * @author Timon Kindler & Lars Flury
  */
 public class Geldausgabe extends javax.swing.JFrame {
     

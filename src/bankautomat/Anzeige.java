@@ -18,8 +18,8 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
- *
- * @author lars.flury
+ * Das Haupt JFrame in welcher der Bankautomat angezeigt wird.
+ * @author Timon Kindler & Lars Flury
  */
 public class Anzeige extends javax.swing.JFrame {
 
@@ -74,12 +74,18 @@ public class Anzeige extends javax.swing.JFrame {
             }
         });
     }
-
+/**
+ * setzt die Karten ArrayList 
+ * @param karten die zu setzenden Karten als ArrayList
+ */
     public void setKarten(ArrayList<Karte> karten) {
         this.karten = karten;
         setKartenDropdown(karten);
     }
-
+/**
+ * Füllt das Dropdown mit Karten.
+ * @param karten  die zu setzenden Karten als ArrayList
+ */
     private void setKartenDropdown(ArrayList<Karte> karten) {
         ArrayList<String> gesperteIbans = bancomat.getGesperteKarten();
         comboboxKarte.removeAllItems();
@@ -504,6 +510,11 @@ public class Anzeige extends javax.swing.JFrame {
         changeSubmissionButtonState(false, false, false);
         isAusgeworfen = false;
     }
+    /**
+     * Diese Methode wird aufgeruffen wenn im Gui auf "ok" geklickt wird.
+     * In dieser Methode werden auf die Situation angepasst die richtigen Methoden ausgelöst.
+     * @param evt 
+     */
     private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
         if (isPinAendernAendern) {
             String[] pinAendernStatus = bancomat.pincodeAendern(ausgewählteKarte, labelValue.getText());
@@ -556,12 +567,21 @@ public class Anzeige extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_buttonOkActionPerformed
+    
+    /**
+     * Der Text der FunctionButtons wird auf den uhrsprünglichen Text gesetzt.
+     */
     private void resetFunctionButtonText() {
         buttonGeldBeziehen.setText("Geld beziehen");
         buttonPinAendern.setText("Pin ändern");
         buttonSaldoAbfragen.setText("Saldo abfragen");
         buttonAndererBetrag.setEnabled(false);
     }
+    /**
+     * Die aktuelle Karte wird ausgeworfen. 
+     * Und alles abgebrochen.
+     * @param evt 
+     */
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         changeGeldwahlButtonvisibility(false);
         isGeldBeziehen = false;
@@ -571,7 +591,10 @@ public class Anzeige extends javax.swing.JFrame {
         isCancel = false;
 
     }//GEN-LAST:event_buttonCancelActionPerformed
-
+/**
+ * 
+ * @param evt 
+ */
     private void buttonGeldBeziehenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGeldBeziehenActionPerformed
         textDarstellen("Wie viel Geld möchten Sie beziehen?:");
         labelValue.setText("");
@@ -701,10 +724,10 @@ public class Anzeige extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonGrossOhneQActionPerformed
 
-    public void beschrifteFktTasten() {
-
-    }
-
+    /**
+     * Zeigt den erhaltenen Text im Info Label an
+     * @param infoText Der anzuzeigende Text
+     */
     public void textDarstellen(String infoText) {
         labelInfo.setText(infoText);
     }

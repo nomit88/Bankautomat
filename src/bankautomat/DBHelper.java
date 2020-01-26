@@ -7,7 +7,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+/**
+ * 
+ * @author Timon Kindler & Lars Flury
+ */
 public class DBHelper {
 
     DBConnection dbConn = new DBConnection();
