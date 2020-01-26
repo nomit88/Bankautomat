@@ -1,6 +1,6 @@
-
 package bankautomat;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 
 /**
  * Das Haupt JFrame in welcher der Bankautomat angezeigt wird.
+ *
  * @author Timon Kindler & Lars Flury
  */
 public class Anzeige extends javax.swing.JFrame {
@@ -54,6 +55,11 @@ public class Anzeige extends javax.swing.JFrame {
         changeFunctionButtonState(false);
         changeInputButtonState(false);
         changeSubmissionButtonState(false, false, false);
+        buttonGeldBeziehen.setPreferredSize(new Dimension(116, 52));
+        buttonSaldoAbfragen.setPreferredSize(new Dimension(116, 52));
+        buttonPinAendern.setPreferredSize(new Dimension(116, 52));
+        buttonAndererBetrag.setPreferredSize(new Dimension(116, 52));
+
         comboboxKarte.addActionListener((ActionEvent e) -> {
             if (!isAusgeworfen) {
                 ausgewählteKarte = bancomat.karteEinlesen(this.karten, String.valueOf(comboboxKarte.getSelectedItem()));
@@ -70,18 +76,22 @@ public class Anzeige extends javax.swing.JFrame {
             }
         });
     }
-/**
- * setzt die Karten ArrayList 
- * @param karten die zu setzenden Karten als ArrayList
- */
+
+    /**
+     * setzt die Karten ArrayList
+     *
+     * @param karten die zu setzenden Karten als ArrayList
+     */
     public void setKarten(ArrayList<Karte> karten) {
         this.karten = karten;
         setKartenDropdown(karten);
     }
-/**
- * Füllt das Dropdown mit Karten.
- * @param karten  die zu setzenden Karten als ArrayList
- */
+
+    /**
+     * Füllt das Dropdown mit Karten.
+     *
+     * @param karten die zu setzenden Karten als ArrayList
+     */
     private void setKartenDropdown(ArrayList<Karte> karten) {
         ArrayList<String> gesperteIbans = bancomat.getGesperteKarten();
         comboboxKarte.removeAllItems();
@@ -134,7 +144,7 @@ public class Anzeige extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.setPreferredSize(new java.awt.Dimension(367, 180));
+        jPanel1.setPreferredSize(new java.awt.Dimension(451, 176));
 
         buttonGrossMitQ.setText("Gross, mit Quittung");
         buttonGrossMitQ.addActionListener(new java.awt.event.ActionListener() {
@@ -179,9 +189,9 @@ public class Anzeige extends javax.swing.JFrame {
                             .addComponent(buttonGrossMitQ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(buttonGemischtMitQ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonGrossOhneQ, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonGemischtOhneQ))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(buttonGemischtOhneQ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(buttonGrossOhneQ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(25, 25, 25))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(labelNoten)
@@ -206,7 +216,7 @@ public class Anzeige extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonGemischtMitQ)
                     .addComponent(buttonGemischtOhneQ))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         buttonGeldBeziehen.setText("Geld beziehen");
@@ -358,7 +368,7 @@ public class Anzeige extends javax.swing.JFrame {
                                 .addComponent(buttonDrei, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -413,7 +423,7 @@ public class Anzeige extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -432,21 +442,19 @@ public class Anzeige extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addComponent(buttonGeldBeziehen, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(buttonSaldoAbfragen, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(44, 44, 44)
-                                .addComponent(buttonPinAendern, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)
-                                .addComponent(buttonAndererBetrag, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(49, 49, 49))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                        .addGap(42, 42, 42)
+                        .addComponent(buttonGeldBeziehen, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(buttonSaldoAbfragen, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(buttonPinAendern, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(buttonAndererBetrag, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -460,30 +468,34 @@ public class Anzeige extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonGemischtMitQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGemischtMitQActionPerformed
-        betrag = Integer.parseInt(labelValue.getText());
-        if (bancomat.istMengeMoeglichZumBeziehen(betrag)) {
-            labelValue.setText(bancomat.geldAbheben(betrag, ausgewählteKarte));
-            if (!labelValue.getText().contains("Bezugslimite") && !labelValue.getText().contains("Saldo")) {
-                changeNoteValuesInGui(bancomat.notenAusgeben(betrag, false));
-                changeQuittungValuesInGui();
-                quittung.setVisible(true);
-                geldausgabe.setVisible(true);
+        if (!labelValue.getText().isEmpty()) {
+            betrag = Integer.parseInt(labelValue.getText());
+            if (bancomat.istMengeMoeglichZumBeziehen(betrag)) {
+                labelValue.setText(bancomat.geldAbheben(betrag, ausgewählteKarte));
+                if (!labelValue.getText().contains("Bezugslimite") && !labelValue.getText().contains("Saldo")) {
+                    changeNoteValuesInGui(bancomat.notenAusgeben(betrag, false));
+                    changeQuittungValuesInGui();
+                    quittung.setVisible(true);
+                    geldausgabe.setVisible(true);
+                }
+            } else {
+                labelValue.setText("<html>Der Bancomat hat nicht genügend Noten, um diesen Betrag zu beziehen!<br /> Nächst möglicher Betrag: " + bancomat.getNaechstMoeglicherBetragZumAbheben() + "</html>");
             }
-        } else {
-            labelValue.setText("<html>Der Bancomat hat nicht genügend Noten, um diesen Betrag zu beziehen!<br /> Nächst möglicher Betrag: " +bancomat.getNaechstMoeglicherBetragZumAbheben() +"</html>");
         }
     }//GEN-LAST:event_buttonGemischtMitQActionPerformed
 
     private void buttonGemischtOhneQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGemischtOhneQActionPerformed
-        betrag = Integer.parseInt(labelValue.getText());
-        if (bancomat.istMengeMoeglichZumBeziehen(betrag)) {
-            labelValue.setText(bancomat.geldAbheben(betrag, ausgewählteKarte));
-            if (!labelValue.getText().contains("Bezugslimite") && !labelValue.getText().contains("Saldo")) {
-                changeNoteValuesInGui(bancomat.notenAusgeben(betrag, false));
-                geldausgabe.setVisible(true);
+        if (!labelValue.getText().isEmpty()) {
+            betrag = Integer.parseInt(labelValue.getText());
+            if (bancomat.istMengeMoeglichZumBeziehen(betrag)) {
+                labelValue.setText(bancomat.geldAbheben(betrag, ausgewählteKarte));
+                if (!labelValue.getText().contains("Bezugslimite") && !labelValue.getText().contains("Saldo")) {
+                    changeNoteValuesInGui(bancomat.notenAusgeben(betrag, false));
+                    geldausgabe.setVisible(true);
+                }
+            } else {
+                labelValue.setText("<html>Der Bancomat hat nicht genügend Noten, um diesen Betrag zu beziehen!<br /> Nächst möglicher Betrag: " + bancomat.getNaechstMoeglicherBetragZumAbheben() + "</html>");
             }
-        } else {
-            labelValue.setText("<html>Der Bancomat hat nicht genügend Noten, um diesen Betrag zu beziehen!<br /> Nächst möglicher Betrag: " +bancomat.getNaechstMoeglicherBetragZumAbheben() +"</html>");
         }
     }//GEN-LAST:event_buttonGemischtOhneQActionPerformed
 
@@ -506,10 +518,13 @@ public class Anzeige extends javax.swing.JFrame {
         changeSubmissionButtonState(false, false, false);
         isAusgeworfen = false;
     }
+
     /**
-     * Diese Methode wird aufgeruffen wenn im Gui auf "ok" geklickt wird.
-     * In dieser Methode werden auf die Situation angepasst die richtigen Methoden ausgelöst.
-     * @param evt 
+     * Diese Methode wird aufgeruffen wenn im Gui auf "ok" geklickt wird. In
+     * dieser Methode werden auf die Situation angepasst die richtigen Methoden
+     * ausgelöst.
+     *
+     * @param evt
      */
     private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
         if (isPinAendernAendern) {
@@ -525,45 +540,46 @@ public class Anzeige extends javax.swing.JFrame {
         }
 
         if (isPinPruefen) {
-            if (bancomat.pincodePrüfen(ausgewählteKarte, Integer.parseInt(labelValue.getText()))) {
-                isPinPruefen = false;
-                changeFunctionButtonState(true);
+            if (!labelValue.getText().isEmpty()) {
+                if (bancomat.pincodePrüfen(ausgewählteKarte, Integer.parseInt(labelValue.getText()))) {
+                    isPinPruefen = false;
+                    changeFunctionButtonState(true);
 
-                textDarstellen("Pincode Korrekt eingegeben.");
-                ausgewählteKarte.resetPincount();
-                if (isPinAendernPruefen) {
-                    textDarstellen(labelInfo.getText() + " Geben Sie einen neuen Pin ein:");
-                    isPinAendernPruefen = false;
-                    isPinAendernAendern = true;
-                }
-                isKontoGesperrt = bancomat.pruefeKonto(ausgewählteKarte);
-                buttonGeldBeziehen.setEnabled(!isKontoGesperrt);
-                buttonSaldoAbfragen.setEnabled(!isKontoGesperrt);
-                System.out.println(isKontoGesperrt);
+                    textDarstellen("Pincode Korrekt eingegeben.");
+                    ausgewählteKarte.resetPincount();
+                    if (isPinAendernPruefen) {
+                        textDarstellen(labelInfo.getText() + " Geben Sie einen neuen Pin ein:");
+                        isPinAendernPruefen = false;
+                        isPinAendernAendern = true;
+                    }
+                    isKontoGesperrt = bancomat.pruefeKonto(ausgewählteKarte);
+                    buttonGeldBeziehen.setEnabled(!isKontoGesperrt);
+                    buttonSaldoAbfragen.setEnabled(!isKontoGesperrt);
+                    System.out.println(isKontoGesperrt);
 
-            } else {
-                int anzVerbleibendeVersuche = ausgewählteKarte.getPincount();
-                if (anzVerbleibendeVersuche > 0) {
-                    textDarstellen("Falscher Pincode, versuchen Sie es erneut: Verbleibende Versuche " + anzVerbleibendeVersuche);
                 } else {
-                    textDarstellen("Der Pincode wurde zu oft falsch eingegeben. Die Karte wird jetzt eingezogen.");
-                    bancomat.karteEinziehen(ausgewählteKarte);
-                    karten.remove(ausgewählteKarte);
-                    setKartenDropdown(karten);
+                    int anzVerbleibendeVersuche = ausgewählteKarte.getPincount();
+                    if (anzVerbleibendeVersuche > 0) {
+                        textDarstellen("Falscher Pincode, versuchen Sie es erneut: Verbleibende Versuche " + anzVerbleibendeVersuche);
+                    } else {
+                        textDarstellen("Der Pincode wurde zu oft falsch eingegeben. Die Karte wird jetzt eingezogen.");
+                        bancomat.karteEinziehen(ausgewählteKarte);
+                        karten.remove(ausgewählteKarte);
+                        setKartenDropdown(karten);
+                    }
                 }
+            }
+
+            if (isGeldBeziehen) {
+                changeGeldwahlButtonvisibility(true);
+            } else {
+
+                labelValue.setText(isKontoGesperrt ? "Ihr Konto ist gesperrt!" : "");
             }
         }
 
-        if (isGeldBeziehen) {
-            changeGeldwahlButtonvisibility(true);
-        } else {
-
-            labelValue.setText(isKontoGesperrt ? "Ihr Konto ist gesperrt!" : "");
-        }
-
-
     }//GEN-LAST:event_buttonOkActionPerformed
-    
+
     /**
      * Der Text der FunctionButtons wird auf den uhrsprünglichen Text gesetzt.
      */
@@ -573,10 +589,11 @@ public class Anzeige extends javax.swing.JFrame {
         buttonSaldoAbfragen.setText("Saldo abfragen");
         buttonAndererBetrag.setEnabled(false);
     }
+
     /**
-     * Die aktuelle Karte wird ausgeworfen. 
-     * Und alles abgebrochen.
-     * @param evt 
+     * Die aktuelle Karte wird ausgeworfen. Und alles abgebrochen.
+     *
+     * @param evt
      */
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         changeGeldwahlButtonvisibility(false);
@@ -585,13 +602,16 @@ public class Anzeige extends javax.swing.JFrame {
         karteAuswerfen();
         resetFunctionButtonText();
         isCancel = false;
+        buttonAndererBetrag.setVisible(false);
 
     }//GEN-LAST:event_buttonCancelActionPerformed
-/**
- * Wenn auf buttonGeldBeziehen geklickt wird wird diese Funktion ausgeführt.
- * Fals bereits geld bezogen werden soll, wird 20 als zu beziehender Wert gewählt.
- * @param evt 
- */
+    /**
+     * Wenn auf buttonGeldBeziehen geklickt wird wird diese Funktion ausgeführt.
+     * Fals bereits geld bezogen werden soll, wird 20 als zu beziehender Wert
+     * gewählt.
+     *
+     * @param evt
+     */
     private void buttonGeldBeziehenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGeldBeziehenActionPerformed
         textDarstellen("Wie viel Geld möchten Sie beziehen?:");
         labelValue.setText("");
@@ -648,8 +668,8 @@ public class Anzeige extends javax.swing.JFrame {
         labelValue.setText(labelValue.getText() + buttonNeun.getText());
     }//GEN-LAST:event_buttonNeunActionPerformed
     /**
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void buttonSaldoAbfragenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaldoAbfragenActionPerformed
         if (isGeldBeziehen) {
@@ -695,37 +715,40 @@ public class Anzeige extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonClearActionPerformed
 
     private void buttonGrossMitQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGrossMitQActionPerformed
-        betrag = Integer.parseInt(labelValue.getText());
-        if (bancomat.istMengeMoeglichZumBeziehen(betrag)) {
-            labelValue.setText(bancomat.geldAbheben(betrag, ausgewählteKarte));
-            if (!labelValue.getText().contains("Bezugslimite") && !labelValue.getText().contains("Saldo")) {
-                changeNoteValuesInGui(bancomat.notenAusgeben(betrag, true));
-                changeQuittungValuesInGui();
-                quittung.setVisible(true);
-                geldausgabe.setVisible(true);
+        if (!labelValue.getText().isEmpty()) {
+            betrag = Integer.parseInt(labelValue.getText());
+            if (bancomat.istMengeMoeglichZumBeziehen(betrag)) {
+                labelValue.setText(bancomat.geldAbheben(betrag, ausgewählteKarte));
+                if (!labelValue.getText().contains("Bezugslimite") && !labelValue.getText().contains("Saldo")) {
+                    changeNoteValuesInGui(bancomat.notenAusgeben(betrag, true));
+                    changeQuittungValuesInGui();
+                    quittung.setVisible(true);
+                    geldausgabe.setVisible(true);
+                }
+            } else {
+                labelValue.setText("<html>Der Bancomat hat nicht genügend Noten, um diesen Betrag zu beziehen!<br /> Nächst möglicher Betrag: " + bancomat.getNaechstMoeglicherBetragZumAbheben() + "</html>");
             }
-        } else {
-            labelValue.setText("<html>Der Bancomat hat nicht genügend Noten, um diesen Betrag zu beziehen!<br /> Nächst möglicher Betrag: " +bancomat.getNaechstMoeglicherBetragZumAbheben() +"</html>");
         }
     }//GEN-LAST:event_buttonGrossMitQActionPerformed
 
     private void buttonGrossOhneQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGrossOhneQActionPerformed
-        betrag = Integer.parseInt(labelValue.getText());
-        if (bancomat.istMengeMoeglichZumBeziehen(betrag)) {
-            labelValue.setText(bancomat.geldAbheben(betrag, ausgewählteKarte));
-            if (!labelValue.getText().contains("Bezugslimite") && !labelValue.getText().contains("Saldo")) {
-                changeNoteValuesInGui(bancomat.notenAusgeben(betrag, true));
-                geldausgabe.setVisible(true);
+        if (!labelValue.getText().isEmpty()) {
+            betrag = Integer.parseInt(labelValue.getText());
+            if (bancomat.istMengeMoeglichZumBeziehen(betrag)) {
+                labelValue.setText(bancomat.geldAbheben(betrag, ausgewählteKarte));
+                if (!labelValue.getText().contains("Bezugslimite") && !labelValue.getText().contains("Saldo")) {
+                    changeNoteValuesInGui(bancomat.notenAusgeben(betrag, true));
+                    geldausgabe.setVisible(true);
+                }
+            } else {
+                labelValue.setText("<html>Der Bancomat hat nicht genügend Noten, um diesen Betrag zu beziehen!<br /> Nächst möglicher Betrag: " + bancomat.getNaechstMoeglicherBetragZumAbheben() + "</html>");
             }
-        } else {
-            labelValue.setText("<html>Der Bancomat hat nicht genügend Noten, um diesen Betrag zu beziehen!<br /> Nächst möglicher Betrag: " +bancomat.getNaechstMoeglicherBetragZumAbheben() +"</html>");
         }
-
-
     }//GEN-LAST:event_buttonGrossOhneQActionPerformed
 
     /**
      * Zeigt den erhaltenen Text im Info Label an
+     *
      * @param infoText Der anzuzeigende Text
      */
     public void textDarstellen(String infoText) {
