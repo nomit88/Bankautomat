@@ -33,8 +33,8 @@ public class Anzeige extends javax.swing.JFrame {
     private boolean isCancel = false;
     private boolean isAusgeworfen = false;
     private boolean isKontoGesperrt = false;
-    private int betrag = 0;
     private boolean canWithdraw = false;
+    private int betrag = 0;
 
     /**
      * Creates new form Anzeige
@@ -369,7 +369,7 @@ public class Anzeige extends javax.swing.JFrame {
                                 .addComponent(buttonDrei, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -394,7 +394,7 @@ public class Anzeige extends javax.swing.JFrame {
                     .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonNull, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         comboboxKarte.addActionListener(new java.awt.event.ActionListener() {
@@ -423,8 +423,8 @@ public class Anzeige extends javax.swing.JFrame {
                     .addComponent(buttonGeldBeziehen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -471,7 +471,7 @@ public class Anzeige extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonGemischtMitQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGemischtMitQActionPerformed
-         if (!labelValue.getText().isEmpty()) {
+        if (!labelValue.getText().isEmpty()) {
             betrag = Integer.parseInt(labelValue.getText());
             ArrayList<Geldkassette> kassetten = null;
             try {
@@ -489,6 +489,11 @@ public class Anzeige extends javax.swing.JFrame {
                         changeQuittungValuesInGui();
                         geldausgabe.setVisible(true);
                         quittung.setVisible(true);
+                        textDarstellen("Sie haben " + betrag + " CHF abgehoben");
+                        karteAuswerfen();
+                    }else{
+                        textDarstellen(labelValue.getText());
+                        karteAuswerfen();
                     }
                 } else {
                     labelValue.setText("<html>Der Bancomat hat nicht genügend Noten, um diesen Betrag zu beziehen!<br /> Nächst möglicher Betrag: " + bancomat.getNaechstMoeglicherBetragZumAbheben() + "</html>");
@@ -513,7 +518,13 @@ public class Anzeige extends javax.swing.JFrame {
                     labelValue.setText(bancomat.geldAbheben(betrag, ausgewählteKarte));
                     if (!labelValue.getText().contains("Bezugslimite") && !labelValue.getText().contains("Saldo")) {
                         changeNoteValuesInGui(kassetten);
+                        changeQuittungValuesInGui();
                         geldausgabe.setVisible(true);
+                        textDarstellen("Sie haben " + betrag + " CHF abgehoben");
+                        karteAuswerfen();
+                    }else{
+                        textDarstellen(labelValue.getText());
+                        karteAuswerfen();
                     }
                 } else {
                     labelValue.setText("<html>Der Bancomat hat nicht genügend Noten, um diesen Betrag zu beziehen!<br /> Nächst möglicher Betrag: " + bancomat.getNaechstMoeglicherBetragZumAbheben() + "</html>");
@@ -523,9 +534,9 @@ public class Anzeige extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonGemischtOhneQActionPerformed
 
     /**
-     * Die aktuelle Karte wird ausgeworfen und die Karten werden neu gesetzt.
-     * Dies wird getan um sicherzustellen dass das Program nich auf veralteten
-     * Karten sitzt.
+     * Die aktuelle Karte wird ausgeworfen und die Karten werden neu gesetzt. Es
+     * wird alles wider auf die Standartwerte zurückgesetzt. Dies wird getan um
+     * sicherzustellen dass das Program nich auf veralteten Karten sitzt.
      */
     private void karteAuswerfen() {
         isAusgeworfen = true;
@@ -539,7 +550,19 @@ public class Anzeige extends javax.swing.JFrame {
         changeFunctionButtonState(false);
         changeInputButtonState(false);
         changeSubmissionButtonState(false, false, false);
+        resetFunctionButtonText();
+        changeGeldwahlButtonvisibility(false);
+        isGeldBeziehen = false;
+        isPinPruefen = false;
+        isPinAendernPruefen = false;
+        isPinAendernAendern = false;
+        isCancel = false;
         isAusgeworfen = false;
+        isKontoGesperrt = false;
+        canWithdraw = false;
+        isAusgeworfen = false;
+
+        buttonAndererBetrag.setVisible(false);
     }
 
     /**
@@ -619,13 +642,11 @@ public class Anzeige extends javax.swing.JFrame {
      * @param evt
      */
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
-        changeGeldwahlButtonvisibility(false);
-        isGeldBeziehen = false;
         isCancel = true;
         karteAuswerfen();
         resetFunctionButtonText();
         isCancel = false;
-        buttonAndererBetrag.setVisible(false);
+
 
     }//GEN-LAST:event_buttonCancelActionPerformed
     /**
@@ -636,7 +657,7 @@ public class Anzeige extends javax.swing.JFrame {
      * @param evt
      */
     private void buttonGeldBeziehenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGeldBeziehenActionPerformed
-        textDarstellen("Wie viel Geld möchten Sie beziehen?:");
+        textDarstellen("Wie viel Geld möchten Sie beziehen?");
         labelValue.setText("");
         if (isGeldBeziehen) {
             changeSubmissionButtonState(true, true, true);
@@ -756,6 +777,11 @@ public class Anzeige extends javax.swing.JFrame {
                         changeQuittungValuesInGui();
                         geldausgabe.setVisible(true);
                         quittung.setVisible(true);
+                        textDarstellen("Sie haben " + betrag + " CHF abgehoben");
+                        karteAuswerfen();
+                    }else{
+                        textDarstellen(labelValue.getText());
+                        karteAuswerfen();
                     }
                 } else {
                     labelValue.setText("<html>Der Bancomat hat nicht genügend Noten, um diesen Betrag zu beziehen!<br /> Nächst möglicher Betrag: " + bancomat.getNaechstMoeglicherBetragZumAbheben() + "</html>");
@@ -780,7 +806,13 @@ public class Anzeige extends javax.swing.JFrame {
                     labelValue.setText(bancomat.geldAbheben(betrag, ausgewählteKarte));
                     if (!labelValue.getText().contains("Bezugslimite") && !labelValue.getText().contains("Saldo")) {
                         changeNoteValuesInGui(kassetten);
+                        changeQuittungValuesInGui();
                         geldausgabe.setVisible(true);
+                        textDarstellen("Sie haben " + betrag + " CHF abgehoben");
+                        karteAuswerfen();
+                    }else{
+                        textDarstellen(labelValue.getText());
+                        karteAuswerfen();
                     }
                 } else {
                     labelValue.setText("<html>Der Bancomat hat nicht genügend Noten, um diesen Betrag zu beziehen!<br /> Nächst möglicher Betrag: " + bancomat.getNaechstMoeglicherBetragZumAbheben() + "</html>");

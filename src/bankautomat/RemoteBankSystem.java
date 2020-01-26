@@ -19,7 +19,8 @@ public class RemoteBankSystem {
      * ist
      */
     public boolean pruefeKonto(String iban) {
-        OnlinePruefung onlinePruefung = new OnlinePruefung();
+        OnlinePruefung onlinePruefung  = new OnlinePruefung();
+        onlinePruefung.fuehrePruefungDurch(iban);
         return onlinePruefung.pruefungsresultat();
     }
 
@@ -46,7 +47,7 @@ public class RemoteBankSystem {
         int verfuegbarerSaldo = values[1];
         int bereitsBezogenesGeld = values[2];
         int saldoZumAbheben = menge + bereitsBezogenesGeld;
-        if (saldoZumAbheben <= bezugslimite || saldoZumAbheben < verfuegbarerSaldo) {
+        if (saldoZumAbheben <= bezugslimite && saldoZumAbheben < verfuegbarerSaldo) {
             verfuegbarerSaldo -= menge;
             bereitsBezogenesGeld += menge;
             dbHelper.geldAbheben(menge, karte.getIban(), verfuegbarerSaldo, bereitsBezogenesGeld);
