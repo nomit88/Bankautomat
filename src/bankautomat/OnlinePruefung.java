@@ -15,10 +15,6 @@ public class OnlinePruefung implements Pruefung {
         pruefungsResult = dbHelper.pruefeKonto(iban);
     }
 
-    public void istOnline() {
-
-    }
-
     /**
      * Gibt das Prüfungsresultat zurück
      * @return das Prüfungsresultat
