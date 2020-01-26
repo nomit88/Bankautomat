@@ -12,11 +12,6 @@ import javax.swing.JFrame;
  * @author Lars
  */
 public class Geldausgabe extends javax.swing.JFrame {
-
-    private String zweihunderterNotenAnzahl;
-    private String hunderterNotenAnzahl;
-    private String fuenfzigerNotenAnzahl;
-    private String zwanzigerNotenAnzahl;
     
     /**
      * Creates new form Geldausgabe
@@ -53,8 +48,16 @@ public class Geldausgabe extends javax.swing.JFrame {
 
         jLabel5.setText("20er Noten:");
 
+        labelZweihundererNotenValue.setText("0");
+
+        labelHundererNotenValue.setText("0");
+
+        labelFuenfzigerNotenValue.setText("0");
+
+        labelZwanzigerNotenValue.setText("0");
+
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel1.setText("Quittung");
+        jLabel1.setText("Geldausgabe:");
 
         jLabel2.setText("200er Noten:");
 
@@ -156,27 +159,19 @@ public class Geldausgabe extends javax.swing.JFrame {
     private javax.swing.JLabel labelZweihundererNotenValue;
     // End of variables declaration//GEN-END:variables
     
-    public void updateNotenLabels() {
-        labelZweihundererNotenValue.setText(zweihunderterNotenAnzahl);
-        labelHundererNotenValue.setText(hunderterNotenAnzahl);
-        labelFuenfzigerNotenValue.setText(fuenfzigerNotenAnzahl);
-        labelZwanzigerNotenValue.setText(zwanzigerNotenAnzahl);
-        System.out.println(zwanzigerNotenAnzahl);
-    }
-
     public void setZweihunderterNotenAnzahl(String zweihunderterNotenAnzahl) {
-        this.zweihunderterNotenAnzahl = zweihunderterNotenAnzahl;
+        labelZweihundererNotenValue.setText(zweihunderterNotenAnzahl);
     }
 
     public void setHunderterNotenAnzahl(String hunderterNotenAnzahl) {
-        this.hunderterNotenAnzahl = hunderterNotenAnzahl;
+        labelHundererNotenValue.setText(hunderterNotenAnzahl);
     }
 
     public void setFuenfzigerNotenAnzahl(String fuenfzigerNotenAnzahl) {
-        this.fuenfzigerNotenAnzahl = fuenfzigerNotenAnzahl;
+       labelFuenfzigerNotenValue.setText(fuenfzigerNotenAnzahl);
     }
 
     public void setZwanzigerNotenAnzahl(String zwanzigerNotenAnzahl) {
-        this.zwanzigerNotenAnzahl = zwanzigerNotenAnzahl;
+        labelZwanzigerNotenValue.setText(zwanzigerNotenAnzahl);
     }
 }

@@ -1,6 +1,9 @@
 package bankautomat;
 
+import java.awt.Label;
 import java.util.ArrayList;
+import java.util.Collections;
+import javax.swing.JLabel;
 
 public class Bancomat {
 
@@ -100,5 +103,20 @@ public class Bancomat {
         LokalePruefung lokalePruefung = new LokalePruefung();
         lokalePruefung.fuehrePruefungDurch(karte);
         return lokalePruefung.pruefungsresultat();
+    }
+    
+    public ArrayList<Geldkassette> notenAusgeben(int menge, boolean isBigNotes){
+       if(remoteBankSystem.istMengeMoeglichZumBeziehen(menge)){
+            return remoteBankSystem.notenAusgeben(menge, dbHelper.getAllKassetten(), isBigNotes);
+       }
+       return (ArrayList) Collections.EMPTY_LIST;
+    }
+    
+    public boolean istMengeMoeglichZumBeziehen(int menge){
+        return remoteBankSystem.istMengeMoeglichZumBeziehen(menge);
+    }
+    
+    public int getNaechstMoeglicherBetragZumAbheben(){
+        return dbHelper.getAllKassetten().stream().mapToInt(kassette -> kassette.getMenge() * kassette.getNote()).sum();
     }
 }

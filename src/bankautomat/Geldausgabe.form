@@ -97,19 +97,31 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labelZweihundererNotenValue">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labelHundererNotenValue">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labelFuenfzigerNotenValue">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labelZwanzigerNotenValue">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Dialog" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Quittung"/>
+        <Property name="text" type="java.lang.String" value="Geldausgabe:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">

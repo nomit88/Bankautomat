@@ -4,6 +4,8 @@ CREATE DATABASE IF NOT EXISTS bankautomat;
 
 USE bankautomat;
 
+DROP TABLE IF EXISTS karte;
+
 CREATE TABLE karte(
 	name varchar(18),
     vorname varchar(12),
@@ -15,6 +17,8 @@ CREATE TABLE karte(
     PRIMARY KEY (iban)
 );
 
+DROP TABLE IF EXISTS bank;
+
 CREATE TABLE bank(
 	iban varchar(26) UNIQUE,
     gesperrt int(1),
@@ -24,15 +28,20 @@ CREATE TABLE bank(
     PRIMARY KEY (iban)
 );
 
+DROP TABLE IF EXISTS kartegesperrt;
+
 CREATE TABLE kartegesperrt(
 	iban varchar(26),
     PRIMARY KEY(iban),
     FOREIGN KEY (iban) REFERENCES karte(iban)
 );
 
+DROP TABLE IF EXISTS geldkassette;
+
 CREATE TABLE geldkassette(
 	note int,
-    anzahl int
+    anzahl int,
+	PRIMARY KEY(note)
 );
 
 INSERT INTO `geldkassette`(`note`, `anzahl`) VALUES (20,10);
