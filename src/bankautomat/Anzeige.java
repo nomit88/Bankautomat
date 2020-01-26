@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package bankautomat;
 
 import java.awt.GridBagConstraints;
@@ -592,7 +588,8 @@ public class Anzeige extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonCancelActionPerformed
 /**
- * 
+ * Wenn auf buttonGeldBeziehen geklickt wird wird diese Funktion ausgeführt.
+ * Fals bereits geld bezogen werden soll, wird 20 als zu beziehender Wert gewählt.
  * @param evt 
  */
     private void buttonGeldBeziehenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGeldBeziehenActionPerformed
@@ -650,7 +647,10 @@ public class Anzeige extends javax.swing.JFrame {
     private void buttonNeunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNeunActionPerformed
         labelValue.setText(labelValue.getText() + buttonNeun.getText());
     }//GEN-LAST:event_buttonNeunActionPerformed
-
+    /**
+     * 
+     * @param evt 
+     */
     private void buttonSaldoAbfragenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaldoAbfragenActionPerformed
         if (isGeldBeziehen) {
             labelValue.setText("50");
