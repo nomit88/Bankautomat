@@ -13,11 +13,6 @@ import javax.swing.JFrame;
  */
 public class Quittung extends javax.swing.JFrame {
 
-    private String zweihunderterNotenAnzahl;
-    private String hunderterNotenAnzahl;
-    private String fuenfzigerNotenAnzahl;
-    private String zwanzigerNotenAnzahl;
-
     /**
      * Creates new form Quittung
      */
@@ -36,27 +31,18 @@ public class Quittung extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        labelNameVorname = new javax.swing.JLabel();
+        labelBank = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        labelZweihundererNotenValue = new javax.swing.JLabel();
-        labelHundererNotenValue = new javax.swing.JLabel();
-        labelFuenfzigerNotenValue = new javax.swing.JLabel();
-        labelZwanzigerNotenValue = new javax.swing.JLabel();
+        labelBetrag = new javax.swing.JLabel();
+        labelIban = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Quittung");
 
-        jLabel2.setText("200er Noten:");
-
-        jLabel3.setText("100er Noten:");
-
-        jLabel4.setText("50er Noten:");
-
-        jLabel5.setText("20er Noten:");
+        jLabel4.setText("Bezogener Betrag:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -64,23 +50,17 @@ public class Quittung extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(labelZweihundererNotenValue, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelBank, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(labelIban, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelNameVorname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelHundererNotenValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelFuenfzigerNotenValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelZwanzigerNotenValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(238, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(labelBetrag, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -88,22 +68,16 @@ public class Quittung extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(labelZweihundererNotenValue, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(labelHundererNotenValue, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelBank, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(labelNameVorname, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(labelFuenfzigerNotenValue, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelBetrag, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(labelZwanzigerNotenValue, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(209, Short.MAX_VALUE))
+                .addComponent(labelIban, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(210, Short.MAX_VALUE))
         );
 
         pack();
@@ -146,38 +120,29 @@ public class Quittung extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel labelFuenfzigerNotenValue;
-    private javax.swing.JLabel labelHundererNotenValue;
-    private javax.swing.JLabel labelZwanzigerNotenValue;
-    private javax.swing.JLabel labelZweihundererNotenValue;
+    private javax.swing.JLabel labelBank;
+    private javax.swing.JLabel labelBetrag;
+    private javax.swing.JLabel labelIban;
+    private javax.swing.JLabel labelNameVorname;
     // End of variables declaration//GEN-END:variables
 
-    public void updateNotenLabels() {
-        labelZweihundererNotenValue.setText(zweihunderterNotenAnzahl);
-        labelHundererNotenValue.setText(hunderterNotenAnzahl);
-        labelFuenfzigerNotenValue.setText(fuenfzigerNotenAnzahl);
-        labelZwanzigerNotenValue.setText(zwanzigerNotenAnzahl);
-        System.out.println(zwanzigerNotenAnzahl);
+    public void setNameVornameText(String name, String vorname){
+        labelNameVorname.setText(name+ " "+vorname);
     }
-
-    public void setZweihunderterNotenAnzahl(String zweihunderterNotenAnzahl) {
-        this.zweihunderterNotenAnzahl = zweihunderterNotenAnzahl;
+    public void setBankText(String bank){
+        labelBank.setText(bank);
     }
-
-    public void setHunderterNotenAnzahl(String hunderterNotenAnzahl) {
-        this.hunderterNotenAnzahl = hunderterNotenAnzahl;
+    
+    public void setBezogenerBetragText(String betrag){
+        labelBetrag.setText(betrag);
     }
-
-    public void setFuenfzigerNotenAnzahl(String fuenfzigerNotenAnzahl) {
-        this.fuenfzigerNotenAnzahl = fuenfzigerNotenAnzahl;
+    
+    public void setIbanText(String iban){
+        labelIban.setText(iban);
     }
-
-    public void setZwanzigerNotenAnzahl(String zwanzigerNotenAnzahl) {
-        this.zwanzigerNotenAnzahl = zwanzigerNotenAnzahl;
+    
+    public void setBetragText(String betrag){
+        labelBetrag.setText(betrag);
     }
-
 }

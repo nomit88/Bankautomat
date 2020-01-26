@@ -35,7 +35,7 @@ public class Anzeige extends javax.swing.JFrame {
     private boolean isCancel = false;
     private boolean isAusgeworfen = false;
     private boolean isKontoGesperrt = false;
-    
+    private int betrag = 0;
     /**
      * Creates new form Anzeige
      */
@@ -450,12 +450,15 @@ public class Anzeige extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonGemischtMitQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGemischtMitQActionPerformed
-        quittung.setZweihunderterNotenAnzahl("2");
-        quittung.setHunderterNotenAnzahl("1");
-        quittung.setFuenfzigerNotenAnzahl("4");
-        quittung.setZwanzigerNotenAnzahl("6");
-        quittung.updateNotenLabels();
-        quittung.setVisible(true);
+        betrag = Integer.parseInt(labelValue.getText());
+        labelValue.setText(bancomat.geldAbheben(betrag, ausgewählteKarte));
+        quittung.setNameVornameText(ausgewählteKarte.getName(), ausgewählteKarte.getVorname());
+        quittung.setBankText(ausgewählteKarte.getBankbezeichnung());
+        quittung.setIbanText(ausgewählteKarte.getIban());
+        quittung.setBetragText(String.valueOf(betrag));
+        if(!labelValue.getText().contains("Bezugslimite") || !labelValue.getText().contains("Saldo")){
+            quittung.setVisible(true);
+        }
     }//GEN-LAST:event_buttonGemischtMitQActionPerformed
 
     private void buttonGemischtOhneQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGemischtOhneQActionPerformed
@@ -647,14 +650,13 @@ public class Anzeige extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonClearActionPerformed
 
     private void buttonGrossMitQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGrossMitQActionPerformed
-        labelValue.setText(bancomat.geldAbheben(Integer.parseInt(labelValue.getText()), ausgewählteKarte));
-        
-        quittung.setZweihunderterNotenAnzahl("1");
-        quittung.setHunderterNotenAnzahl("3");
-        quittung.setFuenfzigerNotenAnzahl("5");
-        quittung.setZwanzigerNotenAnzahl("2");
-        quittung.updateNotenLabels();
-        if(labelValue.getText().isEmpty()){
+        betrag = Integer.parseInt(labelValue.getText());
+        labelValue.setText(bancomat.geldAbheben(betrag, ausgewählteKarte));
+        quittung.setNameVornameText(ausgewählteKarte.getName(), ausgewählteKarte.getVorname());
+        quittung.setBankText(ausgewählteKarte.getBankbezeichnung());
+        quittung.setIbanText(ausgewählteKarte.getIban());
+        quittung.setBetragText(String.valueOf(betrag));
+        if(!labelValue.getText().contains("Bezugslimite") || !labelValue.getText().contains("Saldo")){
             quittung.setVisible(true);
         }
     }//GEN-LAST:event_buttonGrossMitQActionPerformed
