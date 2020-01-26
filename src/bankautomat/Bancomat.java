@@ -75,17 +75,30 @@ public class Bancomat {
     public ArrayList<String> getGesperteKarten() {
         return dbHelper.getGesperteKarten();
     }
-
+    /**
+     * Diese Funktion lässt den Kartenleser den Pin einer Karte überprüfen.
+     * @param karte Die Karte wessen Pin überprüft werden soll.
+     * @param eingegebenerPin Der vom User eingegebene Pin.
+     * @return Gibt zurück ob der eingegebene Pin mit der der Karte übereinstimmt.
+     */
     public Boolean pincodePrüfen(Karte karte, int eingegebenerPin) {
         return kartenleser.pincodePrüfen(karte, eingegebenerPin);
     }
-
+    /**
+     * Diese Funktion lässt den Kartenleser die Karte einlesen.
+     * Danach gibt Sie die eingelesen Karte zurück.
+     * @param karten Alle nicht gesperten Karten.
+     * @param iban Die iban der einzulesenden Karte
+     * @return gibt die eingelesen Karte zurück
+     */
     public Karte karteEinlesen(ArrayList<Karte> karten, String iban) {
         return kartenleser.einlesen(karten, iban);
 
     }
 
-    public void karteEinlesenPrüefen() {
-
+    public boolean kartePrüefen(Karte karte) {
+        LokalePruefung lokalePruefung = new LokalePruefung();
+        lokalePruefung.fuehrePruefungDurch(karte);
+        return lokalePruefung.pruefungsresultat();
     }
 }

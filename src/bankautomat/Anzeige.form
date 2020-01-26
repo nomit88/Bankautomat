@@ -154,7 +154,7 @@
                       <Component id="buttonGemischtMitQ" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonGemischtOhneQ" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="29" max="32767" attributes="0"/>
+                  <EmptySpace pref="19" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -308,7 +308,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonNull" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace pref="23" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

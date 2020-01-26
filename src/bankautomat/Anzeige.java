@@ -27,7 +27,7 @@ public class Anzeige extends javax.swing.JFrame {
     private Bancomat bancomat;
     private Karte ausgewählteKarte;
     private Quittung quittung;
-    
+
     private boolean isGeldBeziehen = false;
     private boolean isPinPruefen = false;
     private boolean isPinAendernPruefen = false;
@@ -36,6 +36,7 @@ public class Anzeige extends javax.swing.JFrame {
     private boolean isAusgeworfen = false;
     private boolean isKontoGesperrt = false;
     private int betrag = 0;
+
     /**
      * Creates new form Anzeige
      */
@@ -58,12 +59,17 @@ public class Anzeige extends javax.swing.JFrame {
         comboboxKarte.addActionListener((ActionEvent e) -> {
             if (!isAusgeworfen) {
                 ausgewählteKarte = bancomat.karteEinlesen(this.karten, String.valueOf(comboboxKarte.getSelectedItem()));
-                textDarstellen("Bitte geben Sie Ihren Pincode ein:");
-                isPinPruefen = true;
-                changeInputButtonState(true);
-                changeSubmissionButtonState(true, true, true);
-                labelValue.setText("");
-            } 
+                if (bancomat.kartePrüefen(ausgewählteKarte)) {
+                    textDarstellen("Bitte geben Sie Ihren Pincode ein:");
+                    isPinPruefen = true;
+                    changeInputButtonState(true);
+                    changeSubmissionButtonState(true, true, true);
+                    labelValue.setText("");
+                }else{
+                    textDarstellen("Die Karte ist nicht mehr gültig");
+                    karteAuswerfen();
+                }
+            }
         });
     }
 
@@ -456,7 +462,7 @@ public class Anzeige extends javax.swing.JFrame {
         quittung.setBankText(ausgewählteKarte.getBankbezeichnung());
         quittung.setIbanText(ausgewählteKarte.getIban());
         quittung.setBetragText(String.valueOf(betrag));
-        if(!labelValue.getText().contains("Bezugslimite") || !labelValue.getText().contains("Saldo")){
+        if (!labelValue.getText().contains("Bezugslimite") || !labelValue.getText().contains("Saldo")) {
             quittung.setVisible(true);
         }
     }//GEN-LAST:event_buttonGemischtMitQActionPerformed
@@ -530,7 +536,7 @@ public class Anzeige extends javax.swing.JFrame {
         if (isGeldBeziehen) {
             changeGeldwahlButtonvisibility(true);
         } else {
-                   
+
             labelValue.setText(isKontoGesperrt ? "Ihr Konto ist gesperrt!" : "");
         }
 
@@ -613,7 +619,7 @@ public class Anzeige extends javax.swing.JFrame {
             changeSubmissionButtonState(true, true, true);
         } else {
             labelInfo.setText("Ihr Saldo beträgt:");
-            labelValue.setText(bancomat.saldoAbfragen(ausgewählteKarte));
+            labelValue.setText(bancomat.saldoAbfragen(ausgewählteKarte) + " CHF");
         }
     }//GEN-LAST:event_buttonSaldoAbfragenActionPerformed
 
@@ -656,7 +662,7 @@ public class Anzeige extends javax.swing.JFrame {
         quittung.setBankText(ausgewählteKarte.getBankbezeichnung());
         quittung.setIbanText(ausgewählteKarte.getIban());
         quittung.setBetragText(String.valueOf(betrag));
-        if(!labelValue.getText().contains("Bezugslimite") || !labelValue.getText().contains("Saldo")){
+        if (!labelValue.getText().contains("Bezugslimite") || !labelValue.getText().contains("Saldo")) {
             quittung.setVisible(true);
         }
     }//GEN-LAST:event_buttonGrossMitQActionPerformed

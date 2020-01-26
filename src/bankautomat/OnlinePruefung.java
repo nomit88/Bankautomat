@@ -2,7 +2,7 @@ package bankautomat;
 
 public class OnlinePruefung implements Pruefung{
     @Override
-    public void fuehrePruefungDurch() {
+    public void fuehrePruefungDurch(Karte karte) {
 
     }
     public void istOnline(){
@@ -10,7 +10,7 @@ public class OnlinePruefung implements Pruefung{
     }
 
     @Override
-    public boolean pruefungsreesultat() {
+    public boolean pruefungsresultat() {
         return false;
     }
 }
