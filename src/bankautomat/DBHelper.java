@@ -7,8 +7,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
- * 
+ * Die Klasse DBHelper. Diese Klasse kann implementiert werden um funktionen auf
+ * der Db durchzuführen.
+ *
  * @author Timon Kindler & Lars Flury
  */
 public class DBHelper {
@@ -20,6 +23,11 @@ public class DBHelper {
         this.connection = dbConn.getConnection();
     }
 
+    /**
+     * Holt alle Karten aus der Db
+     *
+     * @return gibt die Karten als ArrayList zurück
+     */
     public ArrayList<Karte> getKarten() {
         ArrayList datas = new ArrayList();
 
@@ -40,6 +48,35 @@ public class DBHelper {
         return datas;
     }
 
+    /**
+     * Holt eine Spezifische Karte aus der Db
+     *
+     * @param iban iban der Karte
+     * @return Gibt die spezifische Karte zurück
+     */
+    public Karte getKarte(String iban) {
+        Karte karte = null;
+        try {
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM karte WHERE iban = '"+iban+"'";
+            ResultSet result = statement.executeQuery(query);
+            while (result.next()) {
+            karte = new Karte(result.getString("name"), result.getString("vorname"), result.getString("iban"), result.getString("bankbezeichnung"),
+                    result.getInt("kartennummer"), result.getString("gueltigbis"), result.getInt("pincode"));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Err:" + ex);
+            Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return karte;
+    }
+
+    /**
+     * Sperrt eine Karte auf der DB
+     *
+     * @param iban Die iban der zu sperenden Karte
+     */
     public void karteSperren(String iban) {
         Statement statement;
         try {
@@ -48,10 +85,18 @@ public class DBHelper {
             statement.execute(query);
         } catch (SQLException ex) {
             System.err.println("Err:" + ex);
-            Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
+            Logger
+                    .getLogger(DBHelper.class
+                            .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    /**
+     * Ändert den Pin einer Karte
+     *
+     * @param iban die iban der Karte
+     * @param newPin der Neue Pin für die Karte
+     */
     public void pinAendern(String iban, int newPin) {
         Statement statement;
         try {
@@ -60,10 +105,17 @@ public class DBHelper {
             statement.execute(query);
         } catch (SQLException ex) {
             System.err.println("Err:" + ex);
-            Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
+            Logger
+                    .getLogger(DBHelper.class
+                            .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    /**
+     * Hollt alle ibans der gesperten Karten aus der DB
+     *
+     * @return Gibt die ibans der gesperten Karten als ArrayList zurück.
+     */
     public ArrayList<String> getGesperteKarten() {
         ArrayList datas = new ArrayList();
         try {
@@ -76,7 +128,9 @@ public class DBHelper {
             }
         } catch (SQLException ex) {
             System.err.println("Err:" + ex);
-            Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
+            Logger
+                    .getLogger(DBHelper.class
+                            .getName()).log(Level.SEVERE, null, ex);
         }
         return datas;
     }
@@ -97,9 +151,11 @@ public class DBHelper {
                 values[2] = result.getInt("bereitsbezogenesgeld");
                 values[0] = result.getInt("bezugslimite");
                 values[1] = result.getInt("saldo");
+
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBHelper.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return values;
     }
@@ -121,7 +177,8 @@ public class DBHelper {
             statement.executeUpdate(query);
 
         } catch (SQLException ex) {
-            Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBHelper.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -138,10 +195,12 @@ public class DBHelper {
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 return result.getString("saldo");
+
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBHelper.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return "";
     }
@@ -158,10 +217,17 @@ public class DBHelper {
             statement.executeUpdate(query);
 
         } catch (SQLException ex) {
-            Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBHelper.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    /**
+     * Prüft ob das Konto gespert ist.
+     *
+     * @param iban iban des Kontos
+     * @return bool ob das Konto gespert ist
+     */
     public boolean pruefeKonto(String iban) {
         try {
             Statement statement = connection.createStatement();
@@ -169,14 +235,21 @@ public class DBHelper {
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 return result.getInt("gesperrt") == 1 ? true : false;
+
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBHelper.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
 
+    /**
+     * Hollt alle Geldkasseten aus der DB
+     *
+     * @return Gibt die Geldkasseten als ArrayList zurück.
+     */
     public ArrayList<Geldkassette> getAllKassetten() {
         ArrayList<Geldkassette> kassetten = new ArrayList<>();
         try {
@@ -185,13 +258,20 @@ public class DBHelper {
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 kassetten.add(new Geldkassette(result.getInt("anzahl"), result.getInt("note")));
+
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBHelper.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return kassetten;
     }
 
+    /**
+     * Updated die Geldkasseten
+     *
+     * @param kassette die zu updatende Geldkassete
+     */
     public void updateGeldkassette(Geldkassette kassette) {
         try {
             Statement statement = connection.createStatement();
@@ -199,7 +279,8 @@ public class DBHelper {
             statement.executeUpdate(query);
 
         } catch (SQLException ex) {
-            Logger.getLogger(DBHelper.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBHelper.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

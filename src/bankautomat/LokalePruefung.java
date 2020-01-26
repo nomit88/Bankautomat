@@ -17,7 +17,10 @@ public class LokalePruefung implements Pruefung {
      * @param karte
      */
     @Override
-    public void fuehrePruefungDurch(Karte karte) {
+    public void fuehrePruefungDurch(String iban) {
+        DBHelper dBHelper  = new DBHelper();
+        Karte karte = dBHelper.getKarte(iban);
+        
         DateFormat dateFormat = new SimpleDateFormat("yy"); 
         int year = Integer.parseInt(dateFormat.format(Calendar.getInstance().getTime()));
 

@@ -1,7 +1,10 @@
 package bankautomat;
 
 import java.sql.*;
-
+/**
+ *  Diese Klasse stellt eine Verbindung zur DB zur verfügung.
+ * @author Timon Kindler & Lars Flury
+ */
     public class DBConnection {
 
         private final String CONNECTION_STRING = "jdbc:mysql://localhost:3306/bankautomat?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
@@ -9,7 +12,10 @@ import java.sql.*;
         private final String PASSWORD_DB = "";
 
         private Connection connection = null;
-
+        /**
+         * Gibt die Connection zurück
+         * @return die Connection zur DB
+         */
         public Connection getConnection() {
             return connection;
         }

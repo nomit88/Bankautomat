@@ -12,7 +12,8 @@ public class RemoteBankSystem {
     private static DBHelper dbHelper = new DBHelper();
 
     public boolean pruefeKonto(String iban) {
-        return dbHelper.pruefeKonto(iban);
+        OnlinePruefung onlinePruefung  = new OnlinePruefung();
+        return onlinePruefung.pruefungsresultat();
     }
 
     public String saldoAbfragen(String iban) {

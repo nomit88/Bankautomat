@@ -101,7 +101,7 @@ public class Bancomat {
 
     public boolean kartePrüefen(Karte karte) {
         LokalePruefung lokalePruefung = new LokalePruefung();
-        lokalePruefung.fuehrePruefungDurch(karte);
+        lokalePruefung.fuehrePruefungDurch(karte.getIban());
         return lokalePruefung.pruefungsresultat();
     }
     
