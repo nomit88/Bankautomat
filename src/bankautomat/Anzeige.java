@@ -463,6 +463,7 @@ public class Anzeige extends javax.swing.JFrame {
             labelValue.setText(bancomat.geldAbheben(betrag, ausgewählteKarte));
             if (!labelValue.getText().contains("Bezugslimite") && !labelValue.getText().contains("Saldo")) {
                 changeNoteValuesInGui(bancomat.notenAusgeben(betrag, false));
+                changeQuittungValuesInGui();
                 quittung.setVisible(true);
                 geldausgabe.setVisible(true);
             }
@@ -676,6 +677,7 @@ public class Anzeige extends javax.swing.JFrame {
             labelValue.setText(bancomat.geldAbheben(betrag, ausgewählteKarte));
             if (!labelValue.getText().contains("Bezugslimite") && !labelValue.getText().contains("Saldo")) {
                 changeNoteValuesInGui(bancomat.notenAusgeben(betrag, true));
+                changeQuittungValuesInGui();
                 quittung.setVisible(true);
                 geldausgabe.setVisible(true);
             }
