@@ -170,4 +170,20 @@ public class Bancomat {
     public int getNaechstMoeglicherBetragZumAbheben(){
         return dbHelper.getAllKassetten().stream().mapToInt(kassette -> kassette.getMenge() * kassette.getNote()).sum();
     }
+    
+    /**
+     * Gibt alle Geldkassetten zurück
+     * @return alle Geldkassetten 
+     */
+    public ArrayList<Geldkassette> getAllKassetten(){
+        return dbHelper.getAllKassetten();
+    }
+    
+    /**
+     * Updated die Geldkassette, welche mitgegeben wird
+     * @param kassette die Geldkassette, welche geupdatet werden soll.
+     */
+    public void updateGeldkassette(Geldkassette kassette){
+        dbHelper.updateGeldkassette(kassette);
+    }
 }

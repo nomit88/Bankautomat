@@ -145,7 +145,6 @@ public class Anzeige extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.setPreferredSize(new java.awt.Dimension(451, 176));
 
         buttonGrossMitQ.setText("Gross, mit Quittung");
         buttonGrossMitQ.addActionListener(new java.awt.event.ActionListener() {
@@ -206,7 +205,7 @@ public class Anzeige extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(labelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelValue, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelValue, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelNoten)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -217,7 +216,7 @@ public class Anzeige extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonGemischtMitQ)
                     .addComponent(buttonGemischtOhneQ))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         buttonGeldBeziehen.setText("Geld beziehen");
@@ -394,7 +393,7 @@ public class Anzeige extends javax.swing.JFrame {
                     .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonNull, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         comboboxKarte.addActionListener(new java.awt.event.ActionListener() {
@@ -423,8 +422,8 @@ public class Anzeige extends javax.swing.JFrame {
                     .addComponent(buttonGeldBeziehen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -443,21 +442,19 @@ public class Anzeige extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addComponent(buttonGeldBeziehen, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(buttonSaldoAbfragen, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(44, 44, 44)
-                                .addComponent(buttonPinAendern, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)
-                                .addComponent(buttonAndererBetrag, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(49, 49, 49))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)))
+                        .addGap(42, 42, 42)
+                        .addComponent(buttonGeldBeziehen, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(buttonSaldoAbfragen, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(buttonPinAendern, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(buttonAndererBetrag, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -472,13 +469,14 @@ public class Anzeige extends javax.swing.JFrame {
 
     private void buttonGemischtMitQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGemischtMitQActionPerformed
         if (!labelValue.getText().isEmpty()) {
+            ArrayList<Geldkassette> backupKassetten = bancomat.getAllKassetten();
             betrag = Integer.parseInt(labelValue.getText());
             ArrayList<Geldkassette> kassetten = null;
             try {
                 kassetten = bancomat.notenAusgeben(betrag, false);
                 canWithdraw = true;
             } catch (Exception e) {
-                labelValue.setText("Der von Ihnen gewählte Betrag kann nicht ausgegeben werden.");
+                labelValue.setText("<html>Der von Ihnen gewählte Betrag kann nicht ausgegeben werden.<br /> Nächst möglicher Betrag: " +bancomat.getNaechstMoeglicherBetragZumAbheben()+"</html>");
                 canWithdraw = false;
             }
             if (canWithdraw) {
@@ -492,11 +490,10 @@ public class Anzeige extends javax.swing.JFrame {
                         textDarstellen("Sie haben " + betrag + " CHF abgehoben");
                         karteAuswerfen();
                     }else{
+                        backupKassetten.forEach(kassette -> bancomat.updateGeldkassette(kassette));
                         textDarstellen(labelValue.getText());
                         karteAuswerfen();
                     }
-                } else {
-                    labelValue.setText("<html>Der Bancomat hat nicht genügend Noten, um diesen Betrag zu beziehen!<br /> Nächst möglicher Betrag: " + bancomat.getNaechstMoeglicherBetragZumAbheben() + "</html>");
                 }
             }
         }
@@ -504,13 +501,14 @@ public class Anzeige extends javax.swing.JFrame {
 
     private void buttonGemischtOhneQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGemischtOhneQActionPerformed
         if (!labelValue.getText().isEmpty()) {
+            ArrayList<Geldkassette> backupKassetten = bancomat.getAllKassetten();
             betrag = Integer.parseInt(labelValue.getText());
             ArrayList<Geldkassette> kassetten = null;
             try {
                 kassetten = bancomat.notenAusgeben(betrag, false);
                 canWithdraw = true;
             } catch (Exception e) {
-                labelValue.setText("Der von Ihnen gewählte Betrag kann nicht ausgegeben werden.");
+                labelValue.setText("<html>Der von Ihnen gewählte Betrag kann nicht ausgegeben werden.<br /> Nächst möglicher Betrag: " +bancomat.getNaechstMoeglicherBetragZumAbheben()+"</html>");
                 canWithdraw = false;
             }
             if (canWithdraw) {
@@ -523,11 +521,10 @@ public class Anzeige extends javax.swing.JFrame {
                         textDarstellen("Sie haben " + betrag + " CHF abgehoben");
                         karteAuswerfen();
                     }else{
+                        backupKassetten.forEach(kassette -> bancomat.updateGeldkassette(kassette));
                         textDarstellen(labelValue.getText());
                         karteAuswerfen();
                     }
-                } else {
-                    labelValue.setText("<html>Der Bancomat hat nicht genügend Noten, um diesen Betrag zu beziehen!<br /> Nächst möglicher Betrag: " + bancomat.getNaechstMoeglicherBetragZumAbheben() + "</html>");
                 }
             }
         }
@@ -760,13 +757,14 @@ public class Anzeige extends javax.swing.JFrame {
 
     private void buttonGrossMitQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGrossMitQActionPerformed
         if (!labelValue.getText().isEmpty()) {
+            ArrayList<Geldkassette> backupKassetten = bancomat.getAllKassetten();
             betrag = Integer.parseInt(labelValue.getText());
             ArrayList<Geldkassette> kassetten = null;
             try {
                 kassetten = bancomat.notenAusgeben(betrag, true);
                 canWithdraw = true;
             } catch (Exception e) {
-                labelValue.setText("Der von Ihnen gewählte Betrag kann nicht ausgegeben werden.");
+                labelValue.setText("<html>Der von Ihnen gewählte Betrag kann nicht ausgegeben werden.<br /> Nächst möglicher Betrag: " +bancomat.getNaechstMoeglicherBetragZumAbheben()+"</html>");
                 canWithdraw = false;
             }
             if (canWithdraw) {
@@ -780,25 +778,25 @@ public class Anzeige extends javax.swing.JFrame {
                         textDarstellen("Sie haben " + betrag + " CHF abgehoben");
                         karteAuswerfen();
                     }else{
+                        backupKassetten.forEach(kassette -> bancomat.updateGeldkassette(kassette));
                         textDarstellen(labelValue.getText());
                         karteAuswerfen();
                     }
-                } else {
-                    labelValue.setText("<html>Der Bancomat hat nicht genügend Noten, um diesen Betrag zu beziehen!<br /> Nächst möglicher Betrag: " + bancomat.getNaechstMoeglicherBetragZumAbheben() + "</html>");
-                }
+                } 
             }
         }
     }//GEN-LAST:event_buttonGrossMitQActionPerformed
 
     private void buttonGrossOhneQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGrossOhneQActionPerformed
         if (!labelValue.getText().isEmpty()) {
+            ArrayList<Geldkassette> backupKassetten = bancomat.getAllKassetten();
             betrag = Integer.parseInt(labelValue.getText());
             ArrayList<Geldkassette> kassetten = null;
             try {
                 kassetten = bancomat.notenAusgeben(betrag, true);
                 canWithdraw = true;
             } catch (Exception e) {
-                labelValue.setText("Der von Ihnen gewählte Betrag kann nicht ausgegeben werden.");
+                labelValue.setText("<html>Der von Ihnen gewählte Betrag kann nicht ausgegeben werden.<br /> Nächst möglicher Betrag: " +bancomat.getNaechstMoeglicherBetragZumAbheben()+"</html>");
                 canWithdraw = false;
             }
             if (canWithdraw) {
@@ -811,11 +809,10 @@ public class Anzeige extends javax.swing.JFrame {
                         textDarstellen("Sie haben " + betrag + " CHF abgehoben");
                         karteAuswerfen();
                     }else{
+                        backupKassetten.forEach(kassette -> bancomat.updateGeldkassette(kassette));
                         textDarstellen(labelValue.getText());
                         karteAuswerfen();
                     }
-                } else {
-                    labelValue.setText("<html>Der Bancomat hat nicht genügend Noten, um diesen Betrag zu beziehen!<br /> Nächst möglicher Betrag: " + bancomat.getNaechstMoeglicherBetragZumAbheben() + "</html>");
                 }
             }
         }

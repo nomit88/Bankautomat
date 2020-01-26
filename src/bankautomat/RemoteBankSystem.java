@@ -46,8 +46,10 @@ public class RemoteBankSystem {
         int bezugslimite = values[0];
         int verfuegbarerSaldo = values[1];
         int bereitsBezogenesGeld = values[2];
+        System.out.println(verfuegbarerSaldo);
+        
         int saldoZumAbheben = menge + bereitsBezogenesGeld;
-        if (saldoZumAbheben <= bezugslimite && saldoZumAbheben < verfuegbarerSaldo) {
+        if (saldoZumAbheben <= bezugslimite && menge < verfuegbarerSaldo) {
             verfuegbarerSaldo -= menge;
             bereitsBezogenesGeld += menge;
             dbHelper.geldAbheben(menge, karte.getIban(), verfuegbarerSaldo, bereitsBezogenesGeld);
