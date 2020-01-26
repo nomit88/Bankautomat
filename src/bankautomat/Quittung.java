@@ -123,22 +123,37 @@ public class Quittung extends javax.swing.JFrame {
     private javax.swing.JLabel labelNameVorname;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Setzt den Namen und Vornamen des NameVorname-Labels
+     * @param name Der Name des Karteneigentümer
+     * @param vorname Der Vorname des Karteneigentümer
+     */
     public void setNameVornameText(String name, String vorname){
         labelNameVorname.setText(name+ " "+vorname);
     }
+    
+    /**
+     * Setzt die Bank des Betrag-Labels
+     * @param bank Die Bank bei der der Karteneigentümer ist
+     */
     public void setBankText(String bank){
         labelBank.setText(bank);
     }
     
+    /**
+     * Setzt den bezogenen Betrag des Betrag-Labels
+     * @param betrag Der Betrag, welcher abgehoben worden ist
+     */
     public void setBezogenerBetragText(String betrag){
         labelBetrag.setText(betrag);
     }
     
+    /**
+     * Setzt die Iban des Iban-Labels
+     * @param iban Die Iban der Karte
+     */
     public void setIbanText(String iban){
         labelIban.setText(iban);
     }
     
-    public void setBetragText(String betrag){
-        labelBetrag.setText(betrag);
-    }
 }

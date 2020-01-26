@@ -11,15 +11,35 @@ public class RemoteBankSystem {
 
     private static DBHelper dbHelper = new DBHelper();
 
+    /**
+     * Überprüft, ob das Konto, mit der Iban von der Karte gesperrt ist.
+     *
+     * @param ausgewaehlteKarte Die Karte, von der die IBan verwendet wird
+     * @return true, wenn das Konto nicht gesperrt ist, false wenn es gesperrt
+     * ist
+     */
     public boolean pruefeKonto(String iban) {
-        OnlinePruefung onlinePruefung  = new OnlinePruefung();
+        OnlinePruefung onlinePruefung = new OnlinePruefung();
         return onlinePruefung.pruefungsresultat();
     }
 
+    /**
+     * Gibt den Saldo zurück
+     *
+     * @param ausgewaehlteKarte Die Karte, von der die IBan verwendet wird
+     * @return der Saldo, welcher auf dem Konto ist
+     */
     public String saldoAbfragen(String iban) {
         return dbHelper.saldoAbfragen(iban);
     }
 
+    /**
+     * Hebt einen bestimmten Betrag ab
+     *
+     * @param menge Der Betrag, welcher abgehoben werden soll
+     * @param karte Die Karte, von der die Iban benutzt wird
+     * @return Ein String, mit der Statusmeldung
+     */
     public String geldAbheben(int menge, Karte karte) {
         int[] values = dbHelper.getBankValues(karte.getIban());
         int bezugslimite = values[0];
@@ -41,10 +61,22 @@ public class RemoteBankSystem {
         return "";
     }
 
+    /**
+     * Sperrt ein Konto an Hand der übergebenen Iban
+     *
+     * @param iban Die Iban des Kontos, welches gesperrt werden soll
+     */
     public void kontoSperren(String iban) {
         dbHelper.kontoSperren(iban);
     }
 
+    /**
+     * Summiert alle Verfügbaren Geldkassetten und überprüft, die Menge, welche
+     * man abheben möchte, möglich zum abheben ist.
+     *
+     * @param menge Die Menge zum abheben
+     * @return true, wenn möglich, false wenn nicht
+     */
     public boolean istMengeMoeglichZumBeziehen(int menge) {
         int mengeInDatenbank = 0;
         for (Geldkassette kassette : dbHelper.getAllKassetten()) {
@@ -53,6 +85,15 @@ public class RemoteBankSystem {
         return mengeInDatenbank > menge;
     }
 
+    /**
+     * Gibt eine ArrayList, von allen Geldkassetten welche benötigt werden um
+     * den Betrag abzuheben zurück.
+     *
+     * @param menge Der Betrag, welcher abgehoben werden soll
+     * @param isBigNotes true wenn grosse noten zurückgegeben werden sollen,
+     * false wenn nicht
+     * @return Alle benötigten Geldkassetten
+     */
     public ArrayList<Geldkassette> notenAusgeben(int menge, ArrayList<Geldkassette> kassetten, boolean isBigNotes) throws IllegalArgumentException, ArrayIndexOutOfBoundsException {
         ArrayList<Integer[]> list = new ArrayList<>();
         ArrayList<Integer> notes = new ArrayList<>();
@@ -81,17 +122,26 @@ public class RemoteBankSystem {
         }
     }
 
-    public ArrayList<Geldkassette> getSpecificNotes(ArrayList<Geldkassette> kassetten, ArrayList<Integer[]> results, ArrayList<Integer> notes, int index) {
+    /**
+     * Gibt eine ArrayList mit Geldkassetten zurück welche benötigt werden um
+     * den Betrag abzuheben
+     *
+     * @param kassetten Alle Verfügbaren Kassetten
+     * @param resultate Die Berechneten
+     * @param noten
+     * @param index
+     * @return
+     */
+    public ArrayList<Geldkassette> getSpecificNotes(ArrayList<Geldkassette> kassetten, ArrayList<Integer[]> resultate, ArrayList<Integer> noten, int index) {
         ArrayList<Geldkassette> geldkassetten = new ArrayList<>();
-        Integer[] temp = results.get(index);
+        Integer[] temp = resultate.get(index);
         ArrayList<Integer> result = new ArrayList<Integer>(Arrays.asList(temp));
         for (int i = 0; i < result.size(); i++) {
             if (result.get(i) != 0) {
                 int amount = result.get(i);
                 Geldkassette kassette = kassetten.get(i);
                 kassette.setMenge(kassette.getMenge() - amount);
-                System.out.println(amount + " x CHF " + notes.get(i));
-                geldkassetten.add(new Geldkassette(amount, notes.get(i)));
+                geldkassetten.add(new Geldkassette(amount, noten.get(i)));
                 dbHelper.updateGeldkassette(kassette);
             }
         }
@@ -99,35 +149,60 @@ public class RemoteBankSystem {
         return geldkassetten;
     }
 
-    public static ArrayList<Integer[]> solutions(ArrayList<Integer> notes, ArrayList<Integer> anzahl, int[] variation, int price, int position) {
+    /**
+     * Gibt verschiedene Möglichkeiten zurück, wie ein Betrag bezogen werden
+     * kann.
+     *
+     * @param notes Die Verfügbaren Noten
+     * @param anzahl Die Anzahl der Verfügbaren Noten
+     * @param variation Die Anzahl, wie viele verschiedene Noten es gibt
+     * @param betrag Der Betrag, welcher bezogen werden soll
+     * @param position position
+     * @return Ein ArrayList, mit möglichen Kombinationen, wie ein Betrag mit
+     * Noten bezogen werden kann
+     */
+    public static ArrayList<Integer[]> solutions(ArrayList<Integer> notes, ArrayList<Integer> anzahl, int[] variation, int betrag, int position) {
         ArrayList<Integer[]> list = new ArrayList<>();
 
         int value = compute(notes, variation);
-        if (value < price) {
+        if (value < betrag) {
             for (int i = position; i < notes.size(); i++) {
                 if (anzahl.get(i) > variation[i]) {
                     int[] newvariation = variation.clone();
                     newvariation[i]++;
-                    List<Integer[]> newList = solutions(notes, anzahl, newvariation, price, i);
+                    List<Integer[]> newList = solutions(notes, anzahl, newvariation, betrag, i);
                     if (newList != null) {
                         list.addAll(newList);
                     }
                 }
             }
-        } else if (value == price) {
+        } else if (value == betrag) {
             list.add(myCopy(variation));
         }
         return list;
     }
 
-    public static int compute(ArrayList<Integer> notes, int[] variation) {
+    /**
+     * Gibt Anzahl der benötigten Note zurück
+     *
+     * @param noten Noten
+     * @param variation variation
+     * @return anzahl Noten
+     */
+    public static int compute(ArrayList<Integer> noten, int[] variation) {
         int ret = 0;
         for (int i = 0; i < variation.length; i++) {
-            ret += notes.get(i) * variation[i];
+            ret += noten.get(i) * variation[i];
         }
         return ret;
     }
 
+    /**
+     * Erstellt eine Kopie, der Möglichkeiten für eine Note
+     *
+     * @param ar
+     * @return
+     */
     public static Integer[] myCopy(int[] ar) {
         Integer[] ret = new Integer[ar.length];
         for (int i = 0; i < ar.length; i++) {

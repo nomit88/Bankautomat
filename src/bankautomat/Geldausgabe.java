@@ -1,14 +1,13 @@
-
 package bankautomat;
 
 import javax.swing.JFrame;
 
 /**
- * 
+ *
  * @author Timon Kindler & Lars Flury
  */
 public class Geldausgabe extends javax.swing.JFrame {
-    
+
     /**
      * Creates new form Geldausgabe
      */
@@ -154,19 +153,39 @@ public class Geldausgabe extends javax.swing.JFrame {
     private javax.swing.JLabel labelZwanzigerNotenValue;
     private javax.swing.JLabel labelZweihundererNotenValue;
     // End of variables declaration//GEN-END:variables
-    
+
+    /**
+     * Setzt die Anzahl der benötigten
+     *
+     * @param zweihunderterNotenAnzahl
+     */
     public void setZweihunderterNotenAnzahl(String zweihunderterNotenAnzahl) {
         labelZweihundererNotenValue.setText(zweihunderterNotenAnzahl);
     }
 
+    /**
+     * Setzt die Anzahl der benötigten fünfziger noten
+     *
+     * @param zweihunderterNotenAnzahl
+     */
     public void setHunderterNotenAnzahl(String hunderterNotenAnzahl) {
         labelHundererNotenValue.setText(hunderterNotenAnzahl);
     }
 
+    /**
+     * Setzt die Anzahl der benötigten hunderter Noten
+     *
+     * @param zweihunderterNotenAnzahl
+     */
     public void setFuenfzigerNotenAnzahl(String fuenfzigerNotenAnzahl) {
-       labelFuenfzigerNotenValue.setText(fuenfzigerNotenAnzahl);
+        labelFuenfzigerNotenValue.setText(fuenfzigerNotenAnzahl);
     }
 
+    /**
+     * Setzt die Anzahl der benötigten zweihunderter Noten
+     *
+     * @param zweihunderterNotenAnzahl
+     */
     public void setZwanzigerNotenAnzahl(String zwanzigerNotenAnzahl) {
         labelZwanzigerNotenValue.setText(zwanzigerNotenAnzahl);
     }

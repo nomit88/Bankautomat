@@ -578,7 +578,6 @@ public class Anzeige extends javax.swing.JFrame {
                     isKontoGesperrt = bancomat.pruefeKonto(ausgewählteKarte);
                     buttonGeldBeziehen.setEnabled(!isKontoGesperrt);
                     buttonSaldoAbfragen.setEnabled(!isKontoGesperrt);
-                    System.out.println(isKontoGesperrt);
 
                 } else {
                     int anzVerbleibendeVersuche = ausgewählteKarte.getPincount();
@@ -890,11 +889,14 @@ public class Anzeige extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Ändert die Werte im Quittung GUI
+     */
     public void changeQuittungValuesInGui() {
         quittung.setNameVornameText(ausgewählteKarte.getName(), ausgewählteKarte.getVorname());
         quittung.setBankText(ausgewählteKarte.getBankbezeichnung());
         quittung.setIbanText(ausgewählteKarte.getIban());
-        quittung.setBetragText(String.valueOf(betrag));
+        quittung.setBezogenerBetragText(String.valueOf(betrag));
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAcht;

@@ -38,6 +38,10 @@ public class LokalePruefung implements Pruefung {
         }
     }
 
+    /**
+     * Gibt das Prüfungsresultat zurück
+     * @return das Prüfungsresultat
+     */
     @Override
     public boolean pruefungsresultat() {
         return pruefungsresultat;

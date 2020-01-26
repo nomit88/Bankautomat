@@ -26,14 +26,30 @@ public class Bancomat {
 
     }
 
+    /**
+     * Hebt einen bestimmten Betrag ab
+     * @param menge Der Betrag, welcher abgehoben werden soll
+     * @param karte Die Karte, von der die Iban benutzt wird
+     * @return Ein String, mit der Statusmeldung
+     */
     public String geldAbheben(int menge, Karte karte) {
         return remoteBankSystem.geldAbheben(menge, karte);
     }
 
+    /**
+     * Gibt den Saldo zurück
+     * @param ausgewaehlteKarte Die Karte, von der die IBan verwendet wird
+     * @return der Saldo, welcher auf dem Konto ist
+     */
     public String saldoAbfragen(Karte ausgewaehlteKarte) {
         return remoteBankSystem.saldoAbfragen(ausgewaehlteKarte.getIban());
     }
 
+    /**
+     * Überprüft, ob das Konto, mit der Iban von der Karte gesperrt ist.
+     * @param ausgewaehlteKarte Die Karte, von der die IBan verwendet wird
+     * @return true, wenn das Konto nicht gesperrt ist, false wenn es gesperrt ist
+     */
     public boolean pruefeKonto(Karte ausgewaehlteKarte){
         return remoteBankSystem.pruefeKonto(ausgewaehlteKarte.getIban());
     }
@@ -67,14 +83,27 @@ public class Bancomat {
         }
         return new String[]{"Pin erfolgreich geändert", "0"};
     }
+    
+    /**
+     * Holt alle Karten und gibt diese der Anzeige weiter
+     */
     public void setKarten(){
         ArrayList<Karte> karten = dbHelper.getKarten();
         anzeige.setKarten(karten);
     }
+    
+    /**
+     * Zieht die Karte ein und sperrt diese
+     * @param karte Die Karte, welche eingezogen und gesperrt werden soll
+     */
     public void karteEinziehen(Karte karte) {
         kartenleser.einziehen(dbHelper, karte);
     }
 
+    /**
+     * Gibt alle gesperrten Karte zurück.
+     * @return alle gesperrten Karten
+     */
     public ArrayList<String> getGesperteKarten() {
         return dbHelper.getGesperteKarten();
     }
@@ -99,12 +128,24 @@ public class Bancomat {
 
     }
 
+    /**
+     * Üperprüft, ob die Karte gesperrt ist oder nicht
+     * @param karte
+     * @return 
+     */
     public boolean kartePrüefen(Karte karte) {
         LokalePruefung lokalePruefung = new LokalePruefung();
         lokalePruefung.fuehrePruefungDurch(karte.getIban());
         return lokalePruefung.pruefungsresultat();
     }
     
+    /**
+     * Gibt eine ArrayList, von allen Geldkassetten welche benötigt werden um den
+     * Betrag abzuheben zurück. 
+     * @param menge Der Betrag, welcher abgehoben werden soll
+     * @param isBigNotes true wenn grosse noten zurückgegeben werden sollen, false wenn nicht
+     * @return Alle benötigten Geldkassetten
+     */
     public ArrayList<Geldkassette> notenAusgeben(int menge, boolean isBigNotes){
        if(remoteBankSystem.istMengeMoeglichZumBeziehen(menge)){
             return remoteBankSystem.notenAusgeben(menge, dbHelper.getAllKassetten(), isBigNotes);
@@ -112,10 +153,20 @@ public class Bancomat {
        return (ArrayList) Collections.EMPTY_LIST;
     }
     
+    /**
+     * Summiert alle Verfügbaren Geldkassetten und überprüft, die Menge, welche man abheben möchte,
+     * möglich zum abheben ist.
+     * @param menge Die Menge zum abheben
+     * @return true, wenn möglich, false wenn nicht
+     */
     public boolean istMengeMoeglichZumBeziehen(int menge){
         return remoteBankSystem.istMengeMoeglichZumBeziehen(menge);
     }
     
+    /**
+     * Gibt den nächsten, möglichen Betrag zum abheben zurück
+     * @return den nächst möglichen, abhebbaren Betrag
+     */
     public int getNaechstMoeglicherBetragZumAbheben(){
         return dbHelper.getAllKassetten().stream().mapToInt(kassette -> kassette.getMenge() * kassette.getNote()).sum();
     }
