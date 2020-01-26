@@ -44,42 +44,48 @@ public class RemoteBankSystem {
         dbHelper.kontoSperren(iban);
     }
 
-    public boolean istMengeMoeglichZumBeziehen(int menge){
+    public boolean istMengeMoeglichZumBeziehen(int menge) {
         int mengeInDatenbank = 0;
-        for(Geldkassette kassette : dbHelper.getAllKassetten()){
+        for (Geldkassette kassette : dbHelper.getAllKassetten()) {
             mengeInDatenbank += kassette.getMenge() * kassette.getNote();
         }
         return mengeInDatenbank > menge;
     }
-    public ArrayList<Geldkassette> notenAusgeben(int menge, ArrayList<Geldkassette> kassetten, boolean isBigNotes) {
+
+    public ArrayList<Geldkassette> notenAusgeben(int menge, ArrayList<Geldkassette> kassetten, boolean isBigNotes) throws IllegalArgumentException, ArrayIndexOutOfBoundsException {
         ArrayList<Integer[]> list = new ArrayList<>();
         ArrayList<Integer> notes = new ArrayList<>();
         ArrayList<Integer> anzahl = new ArrayList<>();
-        
-        for(int i= 0; i < kassetten.size(); i++){
+
+        for (int i = 0; i < kassetten.size(); i++) {
             notes.add(kassetten.get(i).getNote());
             anzahl.add(kassetten.get(i).getMenge());
         }
-        
+
         ArrayList<Integer[]> results = solutions(notes, anzahl, new int[4], menge, 0);
-        
         int index = results.size();
-        if(isBigNotes){
+        System.out.println(index);
+        if (isBigNotes) {
             return getSpecificNotes(kassetten, results, notes, index - 1);
-        }else{
-            index -= 2;
-            Random rndm = new Random();
-            int rndmIndex = rndm.nextInt(index);
-            return getSpecificNotes(kassetten, results, notes, index);
+        } else {
+            if (index == 1) {
+                return getSpecificNotes(kassetten, results, notes, index - 1);
+            } else {
+                index -= results.size() == 1 ? 0 : 2;
+                Random rndm = new Random();
+                int rndmIndex = rndm.nextInt(index);
+                return getSpecificNotes(kassetten, results, notes, index);
+
+            }
         }
     }
 
-    public ArrayList<Geldkassette> getSpecificNotes(ArrayList<Geldkassette> kassetten, ArrayList<Integer[]> results, ArrayList<Integer> notes, int index){
+    public ArrayList<Geldkassette> getSpecificNotes(ArrayList<Geldkassette> kassetten, ArrayList<Integer[]> results, ArrayList<Integer> notes, int index) {
         ArrayList<Geldkassette> geldkassetten = new ArrayList<>();
         Integer[] temp = results.get(index);
         ArrayList<Integer> result = new ArrayList<Integer>(Arrays.asList(temp));
-        for(int i = 0; i < result.size(); i++){
-            if(result.get(i) != 0){
+        for (int i = 0; i < result.size(); i++) {
+            if (result.get(i) != 0) {
                 int amount = result.get(i);
                 Geldkassette kassette = kassetten.get(i);
                 kassette.setMenge(kassette.getMenge() - amount);
@@ -88,13 +94,13 @@ public class RemoteBankSystem {
                 dbHelper.updateGeldkassette(kassette);
             }
         }
-        
+
         return geldkassetten;
     }
-    
+
     public static ArrayList<Integer[]> solutions(ArrayList<Integer> notes, ArrayList<Integer> anzahl, int[] variation, int price, int position) {
         ArrayList<Integer[]> list = new ArrayList<>();
-        
+
         int value = compute(notes, variation);
         if (value < price) {
             for (int i = position; i < notes.size(); i++) {
